@@ -23,19 +23,27 @@
   --gray-950: oklch(12.3% 0 0);
 
   /* -------------------------------------------------------------------------
-     Brand Orange Scale - International Orange (#F94C10)
-     OKLCH for perceptual uniformity across the scale
+     Brand Violet Scale — BinaryDev (#5F4FC9)
+     OKLCH hue 278 · Contraste texto blanco sobre brand-500: ~6.1:1 (WCAG AA ✓)
      ------------------------------------------------------------------------- */
-  --brand-50: oklch(97.5% 0.02 45);
-  --brand-100: oklch(94.8% 0.04 45);
-  --brand-200: oklch(87.5% 0.08 45);
-  --brand-300: oklch(77.8% 0.14 45);
-  --brand-400: oklch(68.5% 0.19 40);
-  --brand-500: oklch(62.5% 0.22 38);
-  --brand-600: oklch(53.2% 0.19 38);
-  --brand-700: oklch(45.5% 0.16 38);
-  --brand-800: oklch(37.2% 0.13 38);
-  --brand-900: oklch(26.5% 0.09 38);
+  --brand-50:  oklch(97%  0.012 278);
+  --brand-100: oklch(93%  0.030 278);
+  --brand-200: oklch(86%  0.065 278);
+  --brand-300: oklch(75%  0.120 278);
+  --brand-400: oklch(63%  0.180 278);
+  --brand-500: oklch(48%  0.210 278);   /* #5F4FC9 */
+  --brand-600: oklch(41%  0.190 278);
+  --brand-700: oklch(34%  0.160 278);
+  --brand-800: oklch(27%  0.125 278);
+  --brand-900: oklch(18%  0.085 278);
+
+  /* -------------------------------------------------------------------------
+     Accent Yellow — BinaryDev complementario (#deeb87)
+     Siempre usar con texto oscuro (brand-900 o gray-900)
+     Contraste negro sobre accent: ~12:1 (WCAG AAA ✓)
+     ------------------------------------------------------------------------- */
+  --accent-yellow: #deeb87;
+  --accent-yellow-dark: oklch(72% 0.16 120);  /* versión más saturada para hover */
 
   /* Accent - Blue for links/focus */
   --blue-500: oklch(59.5% 0.19 260);
