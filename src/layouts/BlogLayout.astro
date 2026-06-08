@@ -25,7 +25,7 @@ const {
   description,
   publishedAt,
   updatedAt,
-  author = 'Team',
+  author = 'Julieta Gallego',
   image,
   imageAlt,
   tags = [],
@@ -62,17 +62,6 @@ const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
     size="lg"
     showActiveState
     showCta
-    cta={{ label: 'View Docs', href: 'https://docs.deployvelocity.com' }}
-    extraNav={[{ label: 'Features', href: '#features' }]}
-    actions={[
-      {
-        icon: 'github',
-        href: 'https://github.com/southwellmedia/velocity',
-        label: 'View on GitHub',
-        iconOnly: true,
-        target: '_blank',
-      },
-    ]}
   />
 
   <!-- Article Hero -->
@@ -87,7 +76,7 @@ const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
     imageAlt={imageAlt}
   />
 
-  <article class={`py-12 ${image ? 'pt-24' : ''}`}>
+  <article class="py-12">
     <div class="mx-auto max-w-4xl px-6">
       <!-- Breadcrumbs -->
       <Breadcrumbs items={breadcrumbs} class="mb-8" />
@@ -118,7 +107,7 @@ const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
               <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"
               ></path>
             </svg>
-            Back to Blog
+            ← Volver al blog
           </a>
 
           <!-- Share buttons -->
@@ -132,7 +121,7 @@ const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
   {
     tags.length > 0 && (
       <div class="mx-auto max-w-6xl px-6 pb-16">
-        <RelatedPosts currentSlug={slug} tags={tags} locale="en" maxPosts={3} />
+        <RelatedPosts currentSlug={slug} tags={tags} locale="es" maxPosts={3} />
       </div>
     )
   }
