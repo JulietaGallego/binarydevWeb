@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '@/components/patterns/ProjectCard.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+
+const featured = (await getCollection('projects', ({ data }) =>
+  !data.draft && data.featured
+)).sort((a, b) => a.data.order - b.data.order);
+---
+
+{featured.length > 0 && (
+  <section class="py-20">
+    <div class="container mx-auto px-4">
+
+      <div class="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">Proyectos</p>
+          <h2 class="text-3xl font-black text-foreground leading-tight">Trabajo destacado</h2>
+        </div>
+        <Button href="/proyectos" variant="outline" size="sm">
+          Ver todos los proyectos
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true" class="ml-1">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </Button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featured.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            image={project.data.image}
+            url={project.data.url}
+            tags={project.data.tags}
+          />
+        ))}
+      </div>
+
+    </div>
+  </section>
+)}

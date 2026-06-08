@@ -62,9 +62,24 @@ const faqs = defineCollection({
   }),
 });
 
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/projects' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().max(250),
+    image: z.string().optional(),
+    url: z.string().url().optional(),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    order: z.number().default(99),
+    draft: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   blog,
   pages,
   authors,
   faqs,
+  projects,
 };

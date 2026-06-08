@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '@/layouts/PageLayout.astro';
+import ProjectCard from '@/components/patterns/ProjectCard.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import { Hero } from '@/components/hero';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<PageLayout
+  title="Proyectos"
+  description="Portfolio de proyectos web desarrollados por BinaryDev."
+>
+  <Hero layout="centered" size="sm" showGrid>
+    <Badge slot="badge" pill>Portfolio</Badge>
+    <h1 slot="title">Proyectos</h1>
+    <p slot="description">
+      Una selección de trabajos web: sitios institucionales, tiendas online y automatizaciones.
+    </p>
+  </Hero>
+
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      {projects.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              image={project.data.image}
+              url={project.data.url}
+              tags={project.data.tags}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-foreground-muted py-20">Próximamente.</p>
+      )}
+    </div>
+  </section>
+</PageLayout>
