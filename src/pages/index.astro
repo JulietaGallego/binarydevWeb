@@ -1,57 +1,20 @@
 ---
 import LandingLayout from '@/layouts/LandingLayout.astro';
-import { Hero } from '@/components/hero';
-import Button from '@/components/ui/form/Button/Button.astro';
-import Badge from '@/components/ui/data-display/Badge/Badge.astro';
-import Icon from '@/components/ui/primitives/Icon/Icon.astro';
-import { TerminalDemo } from '@/components/ui/marketing/TerminalDemo';
+import LandingHero from '@/components/landing/LandingHero.astro';
 import ProcesoTrabajo from '@/components/landing/ProcesoTrabajo.astro';
-import FeatureTabs from '@/components/landing/FeatureTabs.tsx';
-import LighthouseScores from '@/components/landing/LighthouseScores.astro';
 import WebInstitucional from '@/components/landing/WebInstitucional.astro';
 import TiendaOnline from '@/components/landing/TiendaOnline.astro';
 import Faq from '@/components/landing/Faq.astro';
 import QuizSection from '@/components/landing/QuizSection.astro';
-
 import CTA from '@/components/landing/CTA.astro';
 import FeaturedProjects from '@/components/landing/FeaturedProjects.astro';
-
 ---
 
 <LandingLayout
-  title="The Complete Astro Starter"
-  description="Design tokens, accessible components, SEO, and i18n configured from the first commit. Velocity ships what other starters leave as homework."
+  title="BinaryDev — Diseño y desarrollo web"
+  description="Diseño, desarrollo y estrategia digital para negocios que quieren crecer en internet. Webs que convierten visitas en clientes."
 >
-  <Hero layout="split" size="lg" showGrid showBlob blobPosition="right">
-    <Badge slot="badge" pill pulse>Web con estrategia</Badge>
-
-    <h1 slot="title">
-      Diseñemos la web que tu negocio <span class="text-brand-500">necesita hoy.</span>
-    </h1>
-
-    <p slot="description">
-      Ordená tu catálogo, centralizá tus consultas y automatizá tus ventas a través de un sistema estable que te ahorra tiempo y administración diaria.
-    </p>
-
-    <Fragment slot="actions">
-      <Button size="lg" href="https://docs.deployvelocity.com" target="_blank">
-        ¿Qué web necesitás?
-      </Button>
-      <Button
-        size="lg"
-        variant="outline"
-        href="https://github.com/southwellmedia/velocity"
-        target="_blank"
-      >
-        <Icon name="github" size="sm" />
-        Portfolio
-      </Button>
-    </Fragment>
-
-    <TerminalDemo slot="aside" client:load />
-
-    
-  </Hero>
+  <LandingHero />
   <FeaturedProjects />
 
     
