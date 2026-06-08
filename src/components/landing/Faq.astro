@@ -1,6 +1,9 @@
 ---
 import Accordion from '@/components/ui/overlay/Accordion/Accordion.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
+import siteConfig from '@/config/site.config';
+
+const whatsappUrl = `https://wa.me/${siteConfig.phone?.replace(/\D/g, '')}`;
 
 const faqItems = [
   {
@@ -57,7 +60,7 @@ const faqItems = [
       </div>
       <Button 
         size="lg" 
-        href="https://wa.me/5492477235288" 
+        href={whatsappUrl}
         target="_blank" 
         rel="noopener noreferrer"
       >

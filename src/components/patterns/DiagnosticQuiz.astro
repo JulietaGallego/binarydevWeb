@@ -2,6 +2,9 @@
 // src/components/landing/DiagnosticQuiz.astro
 // Componente de quiz diagnóstico. Toda la data está en src/data/quiz.ts.
 import { getStep, getResult, TOTAL_STEPS } from "../../lib/quiz";
+import siteConfig from '@/config/site.config';
+
+const whatsappNumber = siteConfig.phone?.replace(/\D/g, '') ?? '';
 
 // Pre-renderizamos el primer paso en el servidor para evitar flash en carga
 const firstStep = getStep(1);
@@ -103,7 +106,7 @@ const firstStep = getStep(1);
   </div>
 </div>
 
-<script>
+<script define:vars={{ whatsappNumber }}>
   import { getStep, getResult, TOTAL_STEPS }  from "../../lib/quiz";
   
   import type { QuizStep }  from "../../lib/quiz";
@@ -346,7 +349,7 @@ const firstStep = getStep(1);
       ].filter((l) => l !== undefined);
 
       const text = encodeURIComponent(lines.join("\n"));
-      window.open(`https://wa.me/5492477235288?text=${text}`, "_blank");
+      window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
     });
 
     document.getElementById("send-email")?.addEventListener("click", () => {
