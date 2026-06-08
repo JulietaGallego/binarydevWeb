@@ -1,157 +1,128 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/layout/Header.astro';
-import Footer from '@/components/layout/Footer.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
-import Button from '@/components/ui/form/Button/Button.astro';
-import Badge from '@/components/ui/data-display/Badge/Badge.astro';
-import Icon from '@/components/ui/primitives/Icon/Icon.astro';
-import Input from '@/components/ui/form/Input/Input.astro';
-import CTA from '@/components/ui/marketing/CTA/CTA.astro';
-import { Hero } from '@/components/hero';
+import CTA from '@/components/landing/CTA.astro';
 import { getCollection } from 'astro:content';
 
-// Get all published posts
 const allPosts = await getCollection('blog', ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 });
 
-// Filter by English locale and sort by date
 const posts = allPosts
   .filter((post) => post.data.locale === 'en')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-// Separate featured posts (shown in hero section)
 const featuredPosts = posts.filter((post) => post.data.featured);
-// Non-featured posts for the main listing
 const nonFeaturedPosts = posts.filter((post) => !post.data.featured);
-// If ALL posts are featured, show them all in the main listing too (to avoid empty section)
 const regularPosts = nonFeaturedPosts.length > 0 ? nonFeaturedPosts : posts;
 
-const getPostUrl = (postId: string) => {
-  // Remove locale prefix from id (e.g., "en/welcome-to-velocity" -> "welcome-to-velocity")
-  const slug = postId.replace('en/', '');
-  return `/blog/${slug}`;
-};
+const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
+
+const topics = ['Diseño web', 'Estrategia digital', 'E-commerce', 'UX & Accesibilidad', 'SEO'];
 ---
 
-<BaseLayout title="Blog" description="Latest articles and updates">
-  <Header
-    slot="header"
-    position="fixed"
-    size="lg"
-    showActiveState
-    showCta
-    cta={{ label: 'View Docs', href: 'https://docs.deployvelocity.com' }}
-    extraNav={[{ label: 'Features', href: '#features' }]}
-    actions={[
-      {
-        icon: 'github',
-        href: 'https://github.com/southwellmedia/velocity',
-        label: 'View on GitHub',
-        iconOnly: true,
-        target: '_blank',
-      },
-    ]}
-  />
+<PageLayout
+  title="Blog — BinaryDev"
+  description="Consejos de diseño web, estrategia digital y e-commerce para hacer crecer tu negocio en internet."
+>
 
-  <Hero layout="split" size="sm" class="bg-surface-secondary border-b border-border">
-    <Badge slot="badge">
-      <Icon name="book" size="sm" class="text-brand-500" />
-      All posts
-    </Badge>
+  <!-- ── Hero del blog ─────────────────────────────────────────── -->
+  <section class="blog-hero relative overflow-hidden border-b border-border bg-background-secondary py-20 lg:py-28">
 
-    <h1 slot="title">Blog</h1>
+    <!-- Glow sutil de fondo -->
+    <div class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-brand-500/8 blur-[100px]" aria-hidden="true"></div>
 
-    <p slot="description">Latest articles and updates</p>
-  </Hero>
+    <div class="relative mx-auto max-w-4xl px-6 text-center">
 
-  <!-- Featured Posts Section -->
-  {
-    featuredPosts.length > 0 && (
-      <section class="bg-background py-16">
-        <div class="mx-auto max-w-6xl px-6">
-          <h2 class="font-display text-foreground mb-8 flex items-center gap-2 text-2xl font-bold">
-            <svg class="text-brand-500 h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            Featured
-          </h2>
+      <!-- Label -->
+      <p class="mb-5 text-sm font-bold uppercase tracking-[0.2em] text-brand-500">Blog</p>
 
-          <div class="grid gap-6 md:grid-cols-2">
-            {featuredPosts.map((post) => (
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                href={getPostUrl(post.id)}
-                publishedAt={post.data.publishedAt}
-                tags={post.data.tags}
-                author={post.data.author}
-                image={post.data.image}
-                featured={true}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
+      <!-- Título -->
+      <h1 class="font-display mb-5 text-4xl font-black leading-[1.08] tracking-tight text-foreground text-balance sm:text-5xl lg:text-6xl">
+        Ideas para hacer crecer
+        <span class="text-brand-500"> tu negocio digital.</span>
+      </h1>
 
-  <!-- All Posts Section -->
-  <section class="bg-background-secondary py-16">
-    <div class="mx-auto max-w-6xl px-6">
-      {
-        featuredPosts.length > 0 && nonFeaturedPosts.length > 0 && (
-          <h2 class="font-display text-foreground mb-8 text-2xl font-bold">All posts</h2>
-        )
-      }
+      <!-- Descripción -->
+      <p class="mx-auto mb-10 max-w-xl text-lg leading-relaxed text-foreground-muted">
+        Consejos prácticos de diseño web, estrategia digital y e-commerce — sin tecnicismos, directo al punto.
+      </p>
 
-      {
-        regularPosts.length > 0 ? (
-          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {regularPosts.map((post) => (
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                href={getPostUrl(post.id)}
-                publishedAt={post.data.publishedAt}
-                tags={post.data.tags}
-                author={post.data.author}
-                image={post.data.image}
-              />
-            ))}
-          </div>
-        ) : posts.length === 0 ? (
-          <div class="py-16 text-center">
-            <div class="bg-background mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-              <Icon name="file-text" size="lg" class="text-foreground-muted" />
-            </div>
-            <p class="text-foreground-muted text-lg">No posts found</p>
-          </div>
-        ) : null
-      }
+      <!-- Topic pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        {topics.map((t) => (
+          <span class="rounded-full border border-border bg-background px-4 py-1.5 text-sm font-medium text-foreground-muted transition-colors hover:border-brand-500/50 hover:text-brand-500">
+            {t}
+          </span>
+        ))}
+      </div>
+
     </div>
   </section>
 
-  <!-- Newsletter CTA Section -->
-  <CTA variant="invert" size="sm" maxWidth="lg">
-    <h2 slot="heading">Subscribe</h2>
-    <p slot="description">Get the latest articles and updates delivered to your inbox.</p>
+  <!-- ── Posts destacados ───────────────────────────────────────── -->
+  {featuredPosts.length > 0 && (
+    <section class="py-16 lg:py-20">
+      <div class="mx-auto max-w-6xl px-6">
+        <h2 class="font-display mb-8 flex items-center gap-2 text-xl font-bold text-foreground">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-brand-500" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Destacados
+        </h2>
+        <div class="grid gap-6 md:grid-cols-2">
+          {featuredPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              href={getPostUrl(post.id)}
+              publishedAt={post.data.publishedAt}
+              tags={post.data.tags}
+              author={post.data.author}
+              image={post.data.image}
+              featured={true}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
-    <form class="mx-auto flex max-w-md flex-col items-center gap-4 sm:flex-row">
-      <Input
-        type="email"
-        placeholder="Enter your email"
-        size="lg"
-        required
-        class="flex-1"
-      />
-      <Button size="lg" type="submit">
-        Subscribe
-        <Icon name="arrow-right" size="sm" />
-      </Button>
-    </form>
-  </CTA>
+  <!-- ── Todos los posts ────────────────────────────────────────── -->
+  <section class:list={["pb-20 lg:pb-28", featuredPosts.length > 0 && nonFeaturedPosts.length > 0 ? "bg-background-secondary pt-16" : "pt-0"]}>
+    <div class="mx-auto max-w-6xl px-6">
 
-  <Footer slot="footer" layout="simple" background="secondary" showCopyright={false} />
-</BaseLayout>
+      {featuredPosts.length > 0 && nonFeaturedPosts.length > 0 && (
+        <h2 class="font-display mb-8 text-xl font-bold text-foreground">Todos los artículos</h2>
+      )}
+
+      {regularPosts.length > 0 ? (
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {regularPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              href={getPostUrl(post.id)}
+              publishedAt={post.data.publishedAt}
+              tags={post.data.tags}
+              author={post.data.author}
+              image={post.data.image}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="py-24 text-center">
+          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-foreground-subtle" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <p class="text-lg font-semibold text-foreground">Próximamente</p>
+          <p class="mt-1 text-foreground-muted">Los primeros artículos están en camino.</p>
+        </div>
+      )}
+
+    </div>
+  </section>
+
+  <CTA />
+
+</PageLayout>
