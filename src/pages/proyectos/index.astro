@@ -24,14 +24,15 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
   <section class="py-16">
     <div class="container mx-auto px-4">
       {projects.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+        <div class="flex flex-col gap-6">
+          {projects.map((project, i) => (
             <ProjectCard
               title={project.data.title}
               description={project.data.description}
               image={project.data.image}
               url={project.data.url}
               tags={project.data.tags}
+              index={i}
             />
           ))}
         </div>
