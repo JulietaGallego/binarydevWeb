@@ -1,5 +1,8 @@
 ---
 import Button from '@/components/ui/form/Button/Button.astro';
+import siteConfig from '@/config/site.config';
+
+const whatsappUrl = `https://wa.me/${siteConfig.phone?.replace(/\D/g, '')}`;
 ---
 
 <section id="cta" class="relative overflow-hidden py-28 md:py-36">
@@ -63,7 +66,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
       </Button>
 
       <Button
-        href="https://wa.me/5492477235288"
+        href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         size="lg"
