@@ -67,12 +67,10 @@ const reversed = index % 2 !== 0;
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          class="flip-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card text-sm font-medium text-foreground hover:border-brand-500 hover:text-brand-500 transition-colors overflow-hidden"
-          style="perspective: 400px;"
+          class="roll-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card text-sm font-medium text-foreground hover:border-brand-500 hover:text-brand-500 transition-colors duration-300"
         >
-          <span class="flip-btn-inner" style="display:inline-flex; flex-direction:column; height:1.25em; overflow:hidden;">
-            <span class="flip-front">Ver proyecto</span>
-            <span class="flip-back" aria-hidden="true">{url.replace(/^https?:\/\//, '')}</span>
+          <span class="roll-btn-text" aria-label={`Ver proyecto: ${url}`}>
+            <span data-text={url.replace(/^https?:\/\//, '')}>Ver proyecto</span>
           </span>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -87,18 +85,31 @@ const reversed = index % 2 !== 0;
 </article>
 
 <style>
-  .flip-btn .flip-btn-inner {
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: top;
+  .roll-btn-text {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    height: 1.2em;
+    vertical-align: bottom;
   }
-  .flip-btn:hover .flip-btn-inner {
-    transform: translateY(-100%);
-  }
-  .flip-front,
-  .flip-back {
+
+  .roll-btn-text span {
     display: block;
-    line-height: 1.25em;
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     white-space: nowrap;
+  }
+
+  /* Texto de abajo, oculto inicialmente */
+  .roll-btn-text span::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+  }
+
+  .roll-btn:hover .roll-btn-text span {
+    transform: translateY(-100%);
   }
 </style>
 
