@@ -1,219 +1,323 @@
 ---
-import Card from '@/components/ui/data-display/Card/Card.astro';
+// src/components/landing/DiagnosticQuiz.astro
+// Componente de quiz diagnóstico. Toda la data está en src/data/quiz.ts.
+import { getStep, getResult, TOTAL_STEPS } from "../../lib/quiz";
+
+// Pre-renderizamos el primer paso en el servidor para evitar flash en carga
+const firstStep = getStep(1);
 ---
 
-<div id="quiz-container" class="w-full max-w-4xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border min-h-[600px] flex flex-col transition-all duration-500">
-  <div class="w-full bg-secondary h-2">
-    <div id="progress-bar" class="bg-brand-500 h-full transition-all duration-500 w-0"></div>
+<div
+  id="quiz-container"
+  class="w-full max-w-3xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border flex flex-col"
+  style="min-height: 560px;"
+>
+  <!-- Barra de progreso -->
+  <div class="w-full bg-secondary h-1.5">
+    <div
+      id="progress-bar"
+      class="bg-brand-500 h-full"
+      style="width: 0%; transition: width 0.5s ease;"
+    ></div>
   </div>
 
-  <div class="p-6 flex justify-between items-center border-b border-border/50">
-    <button id="prev-btn" class="hidden text-foreground-muted hover:text-foreground flex items-center gap-1 transition-colors group">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m15 18-6-6 6-6"/></svg>
-      <span class="text-sm font-medium">Volver</span>
+  <!-- Header -->
+  <div class="px-6 pt-5 pb-4 flex items-center justify-between border-b border-border/50">
+    <button
+      id="prev-btn"
+      type="button"
+      class="group flex items-center gap-1.5 text-sm font-medium text-foreground-muted hover:text-foreground transition-colors"
+      style="visibility: hidden;"
+      aria-label="Volver al paso anterior"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transition-transform group-hover:-translate-x-0.5"
+        aria-hidden="true"
+      >
+        <path d="m15 18-6-6 6-6" />
+      </svg>
+      Volver
     </button>
-    <span id="step-indicator" class="text-xs font-bold uppercase tracking-wider text-foreground-subtle ml-auto">Paso 1 de 4</span>
+
+    <span
+      id="step-indicator"
+      class="text-xs font-bold uppercase tracking-widest text-foreground-subtle ml-auto"
+      aria-live="polite"
+    >
+      Paso 1 de {TOTAL_STEPS}
+    </span>
   </div>
 
-  <div class="relative flex-1 p-6 md:p-10 overflow-hidden">
-    <div id="step-content" class="transition-all duration-300 ease-in-out opacity-100 translate-x-0">
+  <!-- Área de contenido -->
+  <div class="flex-1 px-6 py-8 md:px-10 md:py-10">
+    <div id="step-content">
+      <!--
+        SSR: primer paso pre-renderizado para evitar CLS.
+        El script toma el control apenas hidrata.
+      -->
+      <div class="mb-7">
+        <h2 class="text-xl font-bold text-foreground leading-snug">
+          {firstStep.title}
+        </h2>
+        {firstStep.subtitle && (
+          <p class="mt-1.5 text-sm text-foreground-muted">{firstStep.subtitle}</p>
+        )}
+      </div>
+
+      <div class="flex flex-col gap-3">
+        {firstStep.options.map((opt) => (
+          <button
+            type="button"
+            data-option-id={opt.id}
+            class="quiz-option group w-full text-left rounded-xl border border-border bg-card p-4 md:p-5 hover:border-brand-500 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99] transition-all duration-200"
+          >
+            <div class="flex items-start gap-3">
+              <span
+                class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 border-border group-hover:border-brand-500 transition-colors"
+                aria-hidden="true"
+              ></span>
+              <div>
+                <p class="text-sm font-semibold text-foreground group-hover:text-brand-500 transition-colors leading-snug">
+                  {opt.label}
+                </p>
+                {opt.detail && (
+                  <p class="mt-1 text-xs text-foreground-muted leading-relaxed">
+                    {opt.detail}
+                  </p>
+                )}
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  const quizData = {
-    results: {
-      '5.1': { 
-        title: "Sitio Web Institucional", 
-        desc: "Una plataforma sólida para transmitir confianza, detallar tus servicios y consolidar la presencia oficial de tu negocio en internet." 
-      },
-      '5.2': { 
-        title: "Tienda Online", 
-        desc: "Un sistema completamente automatizado para exhibir tu catálogo, controlar stock y procesar ventas cobrando las 24 horas." 
-      },
-      '5.3': { 
-        title: "Auditoría de Diseño y Usabilidad", 
-        desc: "Un análisis técnico y visual profundo para detectar exactamente por qué tu plataforma actual no está convirtiendo visitas en clientes." 
-      },
-      '5.4': { 
-        title: "Automatización de procesos", 
-        desc: "Optimización y sincronización de sistemas internos para eliminar tareas manuales repetitivas, agilizar el flujo de datos y reducir tiempos de operación." 
-      }
-    },
-    steps: [
-      {
-        id: 1,
-        title: "¿Qué necesitás resolver primero?",
-        subtitle: "Seleccioná el objetivo prioritario para tu negocio",
-        options: [
-          { id: '1.a', label: "Quiero consolidar la imagen institucional de mi negocio.", detail: "Necesito una web formal y profesional para explicar bien qué hago, dar confianza a mis clientes y centralizar las consultas en un solo lugar." },
-          { id: '1.b', label: "Quiero dejar de vender de forma manual.", detail: "Necesito que mi catálogo esté online para que los clientes elijan, vean el stock real y paguen solos, sin que yo tenga que intervenir en cada venta." },
-          { id: '1.c', label: "Quiero arreglar mi página actual porque no funciona.", detail: "Ya tengo un sitio web, pero es lento, no genera consultas, los usuarios entran y se van, o no sé realmente qué pasa adentro porque no tengo datos de nada." },
-          { id: '1.d', label: "Quiero dejar de hacer las mismas tareas manuales todos los días.", detail: "Perdemos horas valiosas pasando datos a mano, armando presupuestos repetitivos o respondiendo lo mismo por WhatsApp en vez de enfocarnos en hacer crecer el negocio." }         
-        ]
-      },
-      {
-        id: 2,
-        mapping: {
-          '1.a': { 
-            title: "¿Cómo es tu presencia online actual?", 
-            options: [
-              { id: '2.A.1', label: "No tengo presencia online", detail: "Mi negocio todavía no figura en internet de manera oficial." },
-              { id: '2.A.2', label: "Tengo solo redes sociales", detail: "Uso perfiles comerciales pero no tengo un dominio propio." },
-              { id: '2.A.3', label: "Tengo una página antigua", detail: "La web quedó desactualizada visualmente o no es adaptable a celulares." }
-            ]
-          },
-          '1.b': { 
-            title: "¿Cómo vendés tus productos hoy?", 
-            options: [
-              { id: '2.B.1', label: "Por local a la calle o showroom", detail: "La atención y el proceso de cobro se hacen de forma 100% presencial." },
-              { id: '2.B.2', label: "Por WhatsApp y redes sociales", detail: "Muestro fotos online pero coordino el pago y el envío manualmente por chat." },
-              { id: '2.B.3', label: "Es un proyecto nuevo", detail: "Estoy lanzando la marca desde cero y quiero arrancar directo de forma digital." }
-            ]
-          },
-          '1.c': { 
-            title: "¿Cuál es el principal problema que detectás?", 
-            options: [
-              { id: '2.C.1', label: "Problemas visuales o técnicos", detail: "La página se ve vieja, tarda mucho en cargar o tiene errores de diseño." },
-              { id: '2.C.2', label: "Falta de visitas y datos", detail: "No sé cuánta gente entra a la web ni tengo instaladas métricas para medirlo." },
-              { id: '2.C.3', label: "No genera acciones", detail: "La gente ingresa a la plataforma pero se va sin completar ningún formulario." }
-            ]
-          },
-          '1.d': { 
-            title: "¿Cuál es la tarea manual que más tiempo les quita?", 
-            options: [
-              { id: '2.D.1', label: "Pasar datos entre plataformas a mano", detail: "Copiar información entre el sistema de facturación, planillas de Excel, stock o CRM." },
-              { id: '2.D.2', label: "Responder preguntas repetitivas", detail: "Enviar siempre los mismos mensajes de soporte, precios o condiciones de servicio por WhatsApp." },
-              { id: '2.D.3', label: "Armar presupuestos de forma artesanal", detail: "Calcular costos y redactar propuestas personalizadas desde cero para cada cliente que consulta." }
-            ]
-          }
-        }
-      },
-      {
-        id: 3,
-        mapping: {
-          '1.a': { 
-            title: "¿Qué información es clave mostrar en tu nueva web?", 
-            options: [
-              { id: '3.A.1', label: "Mis servicios en detalle y la historia de la empresa", detail: "Es fundamental enfocar el sitio en la propuesta de valor y trayectoria." },
-              { id: '3.A.2', label: "Un catálogo organizado de productos (sin venta online)", detail: "Necesito mostrar el stock disponible de forma clara pero sin pasarela de pagos." },
-              { id: '3.A.3', label: "Todo lo anterior junto", detail: "Busco un portal corporativo completo con secciones de servicios y muestrario." }
-            ]
-          },
-          '1.b': { 
-            title: "¿Qué herramientas necesitás que tenga tu tienda online?", 
-            options: [
-              { id: '3.B.1', label: "Catálogo organizado y carrito de compras básico", detail: "Ideal para presupuestar o recibir pedidos que se finalizan manualmente." },
-              { id: '3.B.2', label: "Carrito, control de stock y pasarelas de pago integradas", detail: "Automatización total de la transacción mediante tarjetas o transferencias." },
-              { id: '3.B.3', label: "Todo junto", detail: "Una solución robusta con pasarelas de pago, logística de envíos y stock en tiempo real." }
-            ]
-          },
-          '1.c': { 
-            title: "¿Qué camino preferís tomar con tu plataforma actual?", 
-            options: [
-              { id: '3.C.1', label: "Revisar lo que hay, medir errores y ver opciones para optimizarlo", detail: "Quiero rescatar la estructura existente solucionando sus puntos débiles." },
-              { id: '3.C.2', label: "Hacer borrón y cuenta nueva: arrancar un sitio de cero", detail: "Prefiero rediseñar por completo la plataforma usando tecnologías modernas." },
-              { id: '3.C.3', label: "No estoy seguro, necesito el diagnóstico de un profesional", detail: "Busco una auditoría técnica preliminar para tomar la mejor decisión económica." }
-            ]
-          },
-          '1.d': { 
-            title: "¿Qué impacto inmediato buscás al implementar esta automatización?", 
-            options: [
-              { id: '3.D.1', label: "Reducir radicalmente el tiempo operativo", detail: "Eliminar la carga manual de datos duplicados y liberar horas de trabajo administrativo diario." },
-              { id: '3.D.2', label: "Evitar errores humanos y pérdidas de información", detail: "Sincronizar sistemas de forma precisa para que no se caigan ventas ni queden mensajes colgados." },
-              { id: '3.D.3', label: "Escalar el volumen de operaciones actual", detail: "Preparar la infraestructura interna del negocio para poder procesar el triple de solicitudes sin colapsar." }
-            ]
-          }
-        }
-      }
-    ]
-  };
+  import { getStep, getResult, TOTAL_STEPS }  from "../../lib/quiz";
+  
+  import type { QuizStep }  from "../../lib/quiz";
+
+  // ─── ESTADO ───────────────────────────────────────────────────────────────
 
   let currentStep = 1;
-  let selections = { s1: null, s2: null, s3: null };
-  
-  const container = document.getElementById('step-content');
-  const prevBtn = document.getElementById('prev-btn');
-  const progressBar = document.getElementById('progress-bar');
-  const stepIndicator = document.getElementById('step-indicator');
+  const sel = { s1: "", s2: "", s3: "" };
 
-  function updateUI() {
-    progressBar.style.width = `${(currentStep / 4) * 100}%`;
-    stepIndicator.innerText = `Paso ${currentStep} de 4`;
-    prevBtn.classList.toggle('hidden', currentStep === 1);
-    renderStep();
+  // ─── REFERENCIAS DOM ──────────────────────────────────────────────────────
+
+  const contentEl  = document.getElementById("step-content")!;
+  const prevBtn    = document.getElementById("prev-btn") as HTMLButtonElement;
+  const progressEl = document.getElementById("progress-bar")!;
+  const indicator  = document.getElementById("step-indicator")!;
+
+  // ─── HEADER ───────────────────────────────────────────────────────────────
+
+  function updateHeader() {
+    const pct =
+      currentStep <= TOTAL_STEPS
+        ? (currentStep / (TOTAL_STEPS + 1)) * 100
+        : 100;
+    progressEl.style.width = `${pct}%`;
+
+    indicator.textContent =
+      currentStep <= TOTAL_STEPS
+        ? `Paso ${currentStep} de ${TOTAL_STEPS}`
+        : "Tu resultado";
+
+    prevBtn.style.visibility = currentStep > 1 ? "visible" : "hidden";
   }
 
-  function calculateResult() {
-    if (selections.s1 === '1.b') return quizData.results['5.2'];
-    if (selections.s1 === '1.c') return quizData.results['5.3'];
-    if (selections.s1 === '1.d') return quizData.results['5.4'];
-    return quizData.results['5.1'];
-  }
+  // ─── TRANSICIÓN ───────────────────────────────────────────────────────────
 
-  function renderStep() {
-    container.classList.add('opacity-0', 'translate-x-4');
-    
+  function transition(renderFn: () => void) {
+    contentEl.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+    contentEl.style.opacity = "0";
+    contentEl.style.transform = "translateX(10px)";
+
     setTimeout(() => {
-      container.innerHTML = '';
-      
-      if (currentStep === 4) {
-        const res = calculateResult();
-        container.innerHTML = `
-          <div class="space-y-6">
-            <div class="bg-brand-500/5 border border-brand-500/20 p-6 rounded-xl text-center">
-              <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">Resultado de tu diagnóstico</span>
-              <h2 class="text-2xl font-black text-foreground mt-2">${res.title}</h2>
-              <p class="text-foreground-muted mt-2">${res.desc}</p>
-            </div>
-            <div id="form-container">
-              <p class="text-center text-sm text-foreground-subtle italic">Cargando formulario de contacto...</p>
-            </div>
-          </div>
-        `;
-      } else {
-        const stepData = currentStep === 1 ? quizData.steps[0] : quizData.steps[currentStep - 1].mapping[selections.s1];
-        
-        const header = document.createElement('div');
-        header.className = 'mb-8';
-        header.innerHTML = `
-          <h2 class="text-2xl font-black text-foreground leading-tight">${stepData.title}</h2>
-          ${stepData.subtitle ? `<p class="mt-2 text-foreground-muted">${stepData.subtitle}</p>` : ''}
-        `;
-        container.appendChild(header);
+      renderFn();
+      contentEl.style.transform = "translateX(-10px)";
+      contentEl.style.opacity = "0";
 
-        const optionsGrid = document.createElement('div');
-        optionsGrid.className = 'flex flex-col gap-4';
-        
-        stepData.options.forEach(opt => {
-          const card = document.createElement('div');
-          card.className = 'group rounded-xl transition-all duration-200 bg-card border border-card-border p-5 hover:border-brand-500 hover:shadow-lg cursor-pointer active:scale-[0.99]';
-          card.innerHTML = `
-            <h3 class="text-base font-bold text-foreground group-hover:text-brand-500 transition-colors">${opt.label}</h3>
-            ${opt.detail ? `<p class="text-sm text-foreground-muted leading-relaxed mt-1.5">${opt.detail}</p>` : ''}
-          `;
-          card.onclick = () => {
-            selections[`s${currentStep}`] = opt.id;
-            currentStep++;
-            updateUI();
-          };
-          optionsGrid.appendChild(card);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          contentEl.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+          contentEl.style.opacity = "1";
+          contentEl.style.transform = "translateX(0)";
         });
-        container.appendChild(optionsGrid);
-      }
-      
-      container.classList.remove('opacity-0', 'translate-x-4');
-      container.classList.add('opacity-100', 'translate-x-0');
-    }, 300);
+      });
+    }, 220);
   }
 
-  prevBtn.onclick = () => {
-    if (currentStep > 1) {
-      currentStep--;
-      updateUI();
-    }
-  };
+  // ─── RENDER OPCIONES ──────────────────────────────────────────────────────
 
-  updateUI();
+  function renderOptions(step: QuizStep) {
+    contentEl.innerHTML = `
+      <div class="mb-7">
+        <h2 class="text-xl font-bold text-foreground leading-snug">${step.title}</h2>
+        ${step.subtitle
+          ? `<p class="mt-1.5 text-sm text-foreground-muted">${step.subtitle}</p>`
+          : ""}
+      </div>
+      <div class="flex flex-col gap-3" id="options-list"></div>
+    `;
+
+    const list = document.getElementById("options-list")!;
+
+    step.options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-option-id", opt.id);
+      btn.className = [
+        "quiz-option group w-full text-left",
+        "rounded-xl border border-border bg-card",
+        "p-4 md:p-5",
+        "hover:border-brand-500 hover:shadow-md",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500",
+        "active:scale-[0.99] transition-all duration-200",
+      ].join(" ");
+
+      btn.innerHTML = `
+        <div class="flex items-start gap-3">
+          <span
+            class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 border-border
+                   group-hover:border-brand-500 transition-colors"
+            aria-hidden="true"
+          ></span>
+          <div>
+            <p class="text-sm font-semibold text-foreground group-hover:text-brand-500
+                      transition-colors leading-snug">
+              ${opt.label}
+            </p>
+            ${opt.detail
+              ? `<p class="mt-1 text-xs text-foreground-muted leading-relaxed">${opt.detail}</p>`
+              : ""}
+          </div>
+        </div>
+      `;
+
+      btn.addEventListener("click", () => handleOptionClick(opt.id));
+      list.appendChild(btn);
+    });
+  }
+
+  // ─── RENDER RESULTADO ─────────────────────────────────────────────────────
+
+  function renderResult() {
+    const res = getResult(sel.s1, sel.s2, sel.s3);
+
+    contentEl.innerHTML = `
+      <div class="space-y-6">
+
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full
+                    bg-brand-500/10 border border-brand-500/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500" aria-hidden="true"></span>
+          <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">
+            ${res.service}
+          </span>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-black text-foreground leading-tight">${res.title}</h2>
+          <p class="mt-3 text-foreground-muted leading-relaxed">${res.desc}</p>
+        </div>
+
+        <hr class="border-border/50" />
+
+        <div class="space-y-3">
+          <p class="text-sm font-semibold text-foreground">
+            ¿Querés que trabajemos en esto juntos?
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="/contacto"
+              class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
+                     bg-brand-500 text-white text-sm font-semibold
+                     hover:bg-brand-600 transition-colors"
+            >
+              Hablemos del proyecto
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+            <button
+              id="restart-btn"
+              type="button"
+              class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
+                     border border-border bg-card text-sm font-medium text-foreground-muted
+                     hover:text-foreground hover:border-foreground-muted transition-colors"
+            >
+              Volver a empezar
+            </button>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+    document.getElementById("restart-btn")?.addEventListener("click", restart);
+  }
+
+  // ─── LÓGICA DE NAVEGACIÓN ─────────────────────────────────────────────────
+
+  function handleOptionClick(optionId: string) {
+    if (currentStep === 1) sel.s1 = optionId;
+    else if (currentStep === 2) sel.s2 = optionId;
+    else if (currentStep === 3) sel.s3 = optionId;
+
+    currentStep++;
+    updateHeader();
+
+    transition(() => {
+      if (currentStep > TOTAL_STEPS) {
+        renderResult();
+      } else {
+        renderOptions(getStep(currentStep, sel.s1));
+      }
+    });
+  }
+
+  function goBack() {
+    if (currentStep <= 1) return;
+    currentStep--;
+    if (currentStep === 3) sel.s3 = "";
+    if (currentStep === 2) sel.s2 = "";
+    updateHeader();
+    transition(() => renderOptions(getStep(currentStep, sel.s1)));
+  }
+
+  function restart() {
+    currentStep = 1;
+    sel.s1 = sel.s2 = sel.s3 = "";
+    updateHeader();
+    transition(() => renderOptions(getStep(1)));
+  }
+
+  // ─── EVENTOS ──────────────────────────────────────────────────────────────
+
+  prevBtn.addEventListener("click", goBack);
+
+  // Delegación de eventos para el primer paso (pre-renderizado por SSR)
+  contentEl.addEventListener("click", (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>("[data-option-id]");
+    if (btn && currentStep === 1) {
+      handleOptionClick(btn.dataset.optionId!);
+    }
+  });
+
+  // Sincronizar header con el SSR inicial
+  updateHeader();
 </script>
