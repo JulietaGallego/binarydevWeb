@@ -52,7 +52,7 @@ const siteConfig: SiteConfig = {
   name: 'BinaryDev',
   description: 'Diseño y desarrollo web a medida en Buenos Aires. Sitios institucionales, tiendas e-commerce y automatización de procesos.',
   url: SITE_URL || 'https://binarydev.com.ar',
-  ogImage: '/og-default.png',
+  ogImage: `/og/index.png`,
   author: 'Julieta Gallego',
   email: 'julieta@binarydev.com.ar',
   phone: '+5492477235288',

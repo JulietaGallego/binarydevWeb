@@ -7,6 +7,9 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import ArticleHero from '@/components/blog/ArticleHero.astro';
 import ShareButtons from '@/components/blog/ShareButtons.astro';
 import RelatedPosts from '@/components/blog/RelatedPosts.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import { createBlogPostSchema } from '@/lib/schema';
+import siteConfig from '@/config/site.config';
 
 interface Props {
   title: string;
@@ -35,14 +38,25 @@ const {
 const ogImage = image?.src || `/og${Astro.url.pathname}.png`;
 
 const breadcrumbs = [
-  { label: 'Home', href: '/' },
+  { label: 'Inicio', href: '/' },
   { label: 'Blog', href: '/blog' },
   { label: title },
 ];
 
-// Get full URL for sharing
 const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const blogPostSchema = createBlogPostSchema({
+  title,
+  description,
+  url: fullUrl,
+  image: image?.src ? new URL(image.src, Astro.site).toString() : new URL(`/og${Astro.url.pathname}.png`, Astro.site).toString(),
+  datePublished: publishedAt,
+  dateModified: updatedAt,
+  author: { name: author, url: siteConfig.url },
+});
 ---
+
+<JsonLd schema={blogPostSchema} />
 
 <BaseLayout
   title={title}
