@@ -63,25 +63,50 @@ const reversed = index % 2 !== 0;
 
     {url && (
       <div>
-        <Button href={url} variant="outline" size="sm" target="_blank" rel="noopener noreferrer">
-          Ver proyecto
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flip-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card text-sm font-medium text-foreground hover:border-brand-500 hover:text-brand-500 transition-colors overflow-hidden"
+          style="perspective: 400px;"
+        >
+          <span class="flip-btn-inner" style="display:inline-flex; flex-direction:column; height:1.25em; overflow:hidden;">
+            <span class="flip-front">Ver proyecto</span>
+            <span class="flip-back" aria-hidden="true">{url.replace(/^https?:\/\//, '')}</span>
+          </span>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true" class="ml-1">
+            stroke-linejoin="round" aria-hidden="true">
             <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
           </svg>
-        </Button>
+        </a>
       </div>
     )}
 
   </div>
 </article>
 
+<style>
+  .flip-btn .flip-btn-inner {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top;
+  }
+  .flip-btn:hover .flip-btn-inner {
+    transform: translateY(-100%);
+  }
+  .flip-front,
+  .flip-back {
+    display: block;
+    line-height: 1.25em;
+    white-space: nowrap;
+  }
+</style>
+
 <script>
   // Tilt solo en dispositivos con mouse (no touch)
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     document.querySelectorAll<HTMLElement>('.tilt-card').forEach((card) => {
-      const STRENGTH = 12;
+      const STRENGTH = 7;
 
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
