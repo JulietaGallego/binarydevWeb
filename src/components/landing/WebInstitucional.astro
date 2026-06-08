@@ -1,0 +1,120 @@
+---
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+
+const cliFlags = [
+  { flag: '--demo', desc: 'Sample landing page + blog posts' },
+  { flag: '--components', desc: '24 optional UI components' },
+  { flag: '--i18n', desc: 'Multi-language routing configured' },
+  { flag: '--pages', desc: 'Generate pages (+ i18n versions)' },
+  { flag: '-y', desc: 'Skip prompts, use defaults' },
+];
+
+const features = [
+  { title: 'Diseño a medida:', description: 'Estética alineada a tu identidad de marca para consolidar tu presencia.' },
+  { title: 'Centralización de consultas:', description: 'Unificación de los canales de contacto para optimizar la gestión de clientes.' },
+  { title: 'Comunicación directa:', description: 'Coordinación fluida y sin intermediarios para asegurar los plazos de entrega.' },
+];
+---
+
+<section id="architecture" class="invert-section bg-background py-[var(--space-section)]">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-[var(--space-section-gap)] px-6 lg:grid-cols-12 lg:gap-[var(--space-section-gap)]">
+    <!-- Left Column - Content -->
+    <div class="lg:col-span-8">
+      <!-- Badge -->
+      <div
+        class="text-brand-500 mb-4 flex items-center gap-2 text-sm font-bold tracking-wide uppercase"
+      >
+      
+        <span>Páginas web diseñadas para profesionales, pymes y negocios locales</span>
+      </div>
+
+      <h2 class="font-display mb-[var(--space-heading-gap)] text-3xl font-bold text-balance md:text-4xl">
+        Tu empresa necesita transmitir confianza las 24 horas<span class="text-brand-500"></span>
+      </h2>
+
+      <div class="text-foreground-secondary space-y-4 text-lg leading-relaxed">
+        <p>
+          Si tus clientes te buscan en Google y no te encuentran, o si tu web actual no refleja la calidad de tu trabajo, estás perdiendo oportunidades frente a tu competencia. 
+        </p>
+        <p>
+          Desarrollo sitios institucionales rápidos, modernos y optimizados para celulares.
+        </p>
+        
+      </div>
+
+      <!-- Features -->
+      <div class="border-border mt-[var(--space-stack-lg)] grid grid-cols-3 gap-[var(--space-stack-lg)] border-t pt-[var(--space-stack-lg)]">
+        {
+          features.map((feature) => (
+            <div>
+              <div class="font-display text-foreground text-xl font-bold">{feature.title}</div>
+              <div class="text-foreground-muted text-sm">{feature.description}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Right Column - Terminal Card -->
+    <div class="relative lg:col-span-4">
+      <div
+        class="bg-card border-border overflow-hidden rounded-lg border shadow-xl"
+      >
+        <!-- Terminal Header -->
+        <div
+          class="bg-secondary border-border flex items-center gap-2 border-b px-4 py-3"
+        >
+          <div class="flex gap-2">
+            <span class="h-3 w-3 rounded-full" style="background-color: var(--error);"></span>
+            <span class="h-3 w-3 rounded-full" style="background-color: var(--warning);"></span>
+            <span class="h-3 w-3 rounded-full" style="background-color: var(--success);"></span>
+          </div>
+          <span class="text-foreground-muted ml-2 font-mono text-xs">terminal</span>
+        </div>
+
+        <!-- Terminal Body -->
+        <div class="p-5 font-mono text-sm leading-relaxed">
+          <!-- Command Line -->
+          <div class="mb-4 flex items-start gap-2">
+            <span class="shrink-0 text-green-400 select-none">$</span>
+            <div>
+              <span class="text-foreground">pnpm create </span>
+              <span class="text-cyan-400">velocity-astro@latest</span>
+              <span class="text-foreground"> my-site</span>
+            </div>
+          </div>
+
+          <!-- Comment -->
+          <div class="text-foreground-muted mb-3 pl-4"># Add what you need</div>
+
+          <!-- Flags -->
+          <div class="space-y-2 pl-4">
+            {
+              cliFlags.map((item) => (
+                <div class="flex items-center gap-3">
+                  <span class="shrink-0 font-semibold text-cyan-400">{item.flag}</span>
+                  <span class="text-foreground-muted"># {item.desc}</span>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Output -->
+          <div class="border-border mt-6 border-t pt-4">
+            <div class="flex items-center gap-2">
+              <span class="text-green-400">✓</span>
+              <span class="text-foreground">Project created successfully!</span>
+            </div>
+            <div class="text-foreground-muted mt-1 pl-5">cd my-site && pnpm dev</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decorative glow -->
+      <div
+        class="bg-brand-500/10 pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full blur-3xl"
+      >
+      </div>
+    </div>
+  </div>
+</section>

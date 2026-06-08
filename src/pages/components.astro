@@ -33,7 +33,6 @@ import Separator from '@/components/ui/layout/Separator/Separator.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 // Marketing Components
 import CTA from '@/components/ui/marketing/CTA/CTA.astro';
-import SocialProof from '@/components/ui/marketing/SocialProof/SocialProof.astro';
 // Other Components
 import { Hero } from '@/components/hero';
 import Header from '@/components/layout/Header.astro';
@@ -150,15 +149,7 @@ const categories = [
                 <p class="text-sm text-foreground-muted">Aside content slot</p>
               </div>
 
-              <SocialProof
-                class="mt-[var(--space-stack-lg)]"
-                text="Trusted by developers"
-                avatars={[
-                  'https://i.pravatar.cc/150?img=12',
-                  'https://i.pravatar.cc/150?img=33',
-                  'https://i.pravatar.cc/150?img=47',
-                ]}
-              />
+             
             </Hero>
           </div>
         </div>
@@ -241,15 +232,6 @@ const categories = [
                 </Button>
               </Fragment>
 
-              <SocialProof
-                class="mt-[var(--space-stack-lg)]"
-                text="Join thousands of users"
-                avatars={[
-                  'https://i.pravatar.cc/150?img=5',
-                  'https://i.pravatar.cc/150?img=8',
-                  'https://i.pravatar.cc/150?img=11',
-                ]}
-              />
             </Hero>
           </div>
         </div>

@@ -4,13 +4,17 @@ import { Hero } from '@/components/hero';
 import Button from '@/components/ui/form/Button/Button.astro';
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
-import SocialProof from '@/components/ui/marketing/SocialProof/SocialProof.astro';
 import { TerminalDemo } from '@/components/ui/marketing/TerminalDemo';
-import TechStack from '@/components/landing/TechStack.astro';
+import ProcesoTrabajo from '@/components/landing/ProcesoTrabajo.astro';
 import FeatureTabs from '@/components/landing/FeatureTabs.tsx';
 import LighthouseScores from '@/components/landing/LighthouseScores.astro';
-import Credibility from '@/components/landing/Credibility.astro';
+import WebInstitucional from '@/components/landing/WebInstitucional.astro';
+import TiendaOnline from '@/components/landing/TiendaOnline.astro';
+import Faq from '@/components/landing/Faq.astro';
+import QuizSection from '@/components/landing/QuizSection.astro';
+
 import CTA from '@/components/landing/CTA.astro';
+
 ---
 
 <LandingLayout
@@ -18,21 +22,19 @@ import CTA from '@/components/landing/CTA.astro';
   description="Design tokens, accessible components, SEO, and i18n configured from the first commit. Velocity ships what other starters leave as homework."
 >
   <Hero layout="split" size="lg" showGrid showBlob blobPosition="right">
-    <Badge slot="badge" pill pulse>v1.0 Public Beta is Live</Badge>
+    <Badge slot="badge" pill pulse>Web con estrategia</Badge>
 
     <h1 slot="title">
-      Your next site <span class="text-brand-500">starts here.</span>
+      Diseñemos la web que tu negocio <span class="text-brand-500">necesita hoy.</span>
     </h1>
 
     <p slot="description">
-      Design tokens, accessible components, SEO, and i18n configured from the first commit. Velocity
-      ships what other starters leave as homework.
+      Ordená tu catálogo, centralizá tus consultas y automatizá tus ventas a través de un sistema estable que te ahorra tiempo y administración diaria.
     </p>
 
     <Fragment slot="actions">
       <Button size="lg" href="https://docs.deployvelocity.com" target="_blank">
-        View Docs
-        <Icon name="arrow-right" size="sm" />
+        ¿Qué web necesitás?
       </Button>
       <Button
         size="lg"
@@ -41,26 +43,35 @@ import CTA from '@/components/landing/CTA.astro';
         target="_blank"
       >
         <Icon name="github" size="sm" />
-        View on GitHub
+        Portfolio
       </Button>
     </Fragment>
 
     <TerminalDemo slot="aside" client:load />
 
-    <SocialProof
-      class="mt-[var(--space-stack-lg)]"
-      text="Shipped to production weekly."
-      avatars={[
-        'https://i.pravatar.cc/150?img=12',
-        'https://i.pravatar.cc/150?img=33',
-        'https://www.southwellmedia.com/_vercel/image?url=%2Fassets%2FMichaelFroseth2025.jpg&w=828&q=90',
-      ]}
-    />
+    
   </Hero>
+  <section class="py-20 ">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <h2 class="font-display text-3xl md:text-4xl font-bold  mb-6">
+        Proyectos recientes
+      </h2>
+      <p class="text-lg secondary max-w-2xl mx-auto leading-relaxed">
+        convertir en componente
+      </p>
+    </div>
+  </section>
 
-  <TechStack />
-  <FeatureTabs client:visible />
-  <LighthouseScores />
-  <Credibility />
+    
+  <WebInstitucional />
+  <TiendaOnline />
+  <QuizSection />
+  <ProcesoTrabajo />
+  <Faq />
+  <!-- <FeatureTabs client:visible />
+  <LighthouseScores />  -->
+
+   
   <CTA />
+  
 </LandingLayout>

@@ -1,0 +1,68 @@
+---
+import Accordion from '@/components/ui/overlay/Accordion/Accordion.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+
+const faqItems = [
+  {
+    title: '¿Cómo es el proceso de trabajo?',
+    content: 'El proceso consta de tres etapas claras: diagnóstico inicial, diseño y desarrollo, y finalmente el lanzamiento con soporte guiado para que aprendas a administrar tu sitio.'
+  },
+  {
+    title: '¿Cuánto tiempo demora el desarrollo?',
+    content: 'Dependiendo de la envergadura del proyecto, una web típica suele estar lista para su lanzamiento en un período de entre 2 y 4 semanas.'
+  },
+  {
+    title: '¿Tengo que pagar mantenimiento mensual?',
+    content: 'No hay costos mensuales obligatorios de mi parte. Te enseño a autogestionar el sitio para que tengas total independencia sobre tu plataforma. Si preferís delegar las actualizaciones técnicas y de seguridad, ofrezco abonos de soporte opcionales.'
+  },
+  {
+    title: '¿Qué pasa si necesito modificaciones después del lanzamiento?',
+    content: 'Ofrezco un período de soporte inicial sin cargo para resolver cualquier eventualidad. Posteriormente podés contratar mantenimiento puntual por hora o abonos mensuales.'
+  },
+{
+    title: '¿El desarrollo incluye el dominio y el hosting?',
+    content: 'Sí, me encargo de la gestión de alta y configuración técnica. El servicio incluye el registro del dominio y el alojamiento (hosting) de forma bonificada durante el primer año.'
+  },
+  {
+    title: '¿Quién se encarga de armar los textos y las imágenes?',
+    content: 'El contenido base (información del negocio, logos y fotos de servicios) lo proveés vos. Yo me encargo de estructurarlo, optimizarlo visualmente y aplicar técnicas de redacción enfocadas en el usuario.'
+  },
+  {
+    title: '¿Y si ya tengo una página pero quiero mejorarla?',
+    content: 'Realizo auditorías de sitios activos para detectar problemas de carga, diseño o conversión. Evaluamos si es viable optimizar la estructura existente o si conviene realizar un rediseño desde cero.'
+  }
+];
+---
+
+<section class="border-t border-border bg-background py-[var(--space-section-sm)]">
+  <div class="mx-auto max-w-4xl px-6">
+    <header class="mb-12 text-center">
+      <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+        Preguntas frecuentes sobre mi servicio
+      </h2>
+    </header>
+
+    <div class="mb-12">
+      <Accordion exclusive items={faqItems} />
+    </div>
+
+    <div class="flex flex-col items-center justify-between gap-6 rounded-2xl bg-background-secondary p-8 text-center md:flex-row md:text-left">
+      <div>
+        <h3 class="font-display text-xl font-bold text-foreground">
+          ¿Tenés una pregunta que no se responde en esta lista?
+        </h3>
+        <p class="mt-2 text-sm text-foreground-muted">
+          Escribime y despejamos tus dudas en minutos.
+        </p>
+      </div>
+      <Button 
+        size="lg" 
+        href="https://wa.me/5492477235288" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </Button>
+    </div>
+  </div>
+</section>

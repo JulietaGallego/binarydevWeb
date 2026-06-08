@@ -1,0 +1,30 @@
+---
+import DiagnosticQuiz from '@/components/patterns/DiagnosticQuiz.astro';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  className?: string;
+}
+
+const { 
+  title = "¿Qué necesitás resolver hoy?", 
+  subtitle = "Respondé estas 3 preguntas y en menos de 1 minuto vas a saber exactamente qué servicio o desarrollo te hace falta para ordenar tu negocio y dejar de perder tiempo.",
+  className 
+} = Astro.props;
+---
+
+<section class={`py-16 px-4 md:py-24 bg-background border-t border-b border-border/60 ${className || ''}`}>
+  <div class="max-w-4xl mx-auto text-center mb-12">
+    <h2 class="text-xl font-black text-foreground tracking-tight leading-tight">
+      {title}
+    </h2>
+    <p class="mt-4 text-base text-foreground-muted leading-relaxed">
+      {subtitle}
+    </p>
+  </div>
+
+  <div class="w-full">
+    <DiagnosticQuiz />
+  </div>
+</section>
