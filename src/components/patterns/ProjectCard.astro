@@ -89,22 +89,23 @@ const reversed = index % 2 !== 0;
     position: relative;
     display: inline-block;
     overflow: hidden;
-    height: 1.2em;
-    vertical-align: bottom;
+    height: 1.5em;
+    vertical-align: middle;
   }
 
   .roll-btn-text span {
     display: block;
+    line-height: 1.5em;
     transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     white-space: nowrap;
   }
 
-  /* Texto de abajo, oculto inicialmente */
   .roll-btn-text span::after {
     content: attr(data-text);
     position: absolute;
     left: 0;
     top: 100%;
+    line-height: 1.5em;
     white-space: nowrap;
   }
 
