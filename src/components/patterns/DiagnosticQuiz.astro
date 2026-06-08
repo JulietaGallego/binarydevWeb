@@ -260,11 +260,11 @@ const firstStep = getStep(1);
             <input id="lead-name"     type="text"  placeholder="Tu nombre *"          class="${INPUT_CLASS}" />
             <input id="lead-business" type="text"  placeholder="Nombre del negocio *" class="${INPUT_CLASS}" />
             <input id="lead-email"    type="email" placeholder="Tu email *"            class="${INPUT_CLASS}" />
-            <input id="lead-whatsapp" type="tel"   placeholder="Tu WhatsApp (opcional)" class="${INPUT_CLASS}" />
+            <input id="lead-whatsapp" type="tel"   placeholder="Tu WhatsApp *"           class="${INPUT_CLASS}" />
           </div>
 
           <p id="lead-error" class="hidden text-xs text-red-500">
-            Por favor completá nombre, negocio y email antes de continuar.
+            Por favor completá todos los campos antes de continuar.
           </p>
 
           <div class="flex flex-col sm:flex-row gap-3">
@@ -318,8 +318,8 @@ const firstStep = getStep(1);
       return { name, business, email, whatsapp };
     }
 
-    function validateLead(data: { name: string; business: string; email: string }): boolean {
-      return !!(data.name && data.business && data.email);
+    function validateLead(data: { name: string; business: string; email: string; whatsapp: string }): boolean {
+      return !!(data.name && data.business && data.email && data.whatsapp);
     }
 
     document.getElementById("send-whatsapp")?.addEventListener("click", () => {
