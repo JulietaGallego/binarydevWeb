@@ -97,14 +97,7 @@ const defaultNav: NavItem[] = getNavItems().map((item: NavConfigItem) => ({
 }));
 const navItems: NavItem[] = nav || defaultNav;
 
-// Default external links if none provided via nav
-const defaultExternalLinks: NavItem[] = [
-  { label: 'GitHub', href: 'https://github.com/southwellmedia/velocity', external: true },
-  { label: 'License', href: 'https://github.com/southwellmedia/velocity/blob/main/LICENSE', external: true },
-];
-
-// Add external links to nav if using default nav
-const allNavItems: NavItem[] = nav ? navItems : [...navItems, ...defaultExternalLinks];
+const allNavItems: NavItem[] = navItems;
 
 // Process copyright text
 const currentYear = new Date().getFullYear();
@@ -138,61 +131,74 @@ function getSocialIcon(platform: string): string {
 <footer class={footerClasses} {...attrs}>
   <div class="mx-auto max-w-6xl px-6">
     {layout === 'simple' && (
-      <div class="flex flex-col md:flex-row justify-between items-center gap-[var(--space-stack-lg)]">
-        {/* Logo & Tagline */}
-        {!hideLogo && (
-          <div class="flex flex-col items-center md:items-start gap-2">
-            {hasLogoSlot ? (
-              <slot name="logo" />
-            ) : (
-              <a href="/" class="flex items-center gap-2">
-                <Logo size="sm" />
-                <span class="font-display text-lg font-bold text-brand-500">
-                  {siteConfig.name}
-                </span>
-              </a>
-            )}
-            {(hasTaglineSlot || tagline) && (
-              <p class="text-sm text-foreground-muted">
-                {hasTaglineSlot ? <slot name="tagline" /> : tagline}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Navigation Links */}
-        <nav class="flex flex-wrap justify-center gap-[var(--space-inline-lg)] md:gap-[var(--space-stack-lg)] text-sm font-medium text-foreground-muted">
-          {allNavItems.map((item) => (
-            <a
-              href={item.href}
-              class="transition-colors hover:text-foreground"
-              target={item.external || item.href.startsWith('http') ? '_blank' : undefined}
-              rel={item.external || item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Social Links */}
-        {showSocial && socialLinks.length > 0 && (
-          hasSocialSlot ? (
-            <slot name="social" />
-          ) : (
-            <div class="flex items-center gap-[var(--space-stack-md)]">
-              {socialLinks.map((social) => (
-                <a
-                  href={social.href}
-                  class="transition-colors text-foreground-muted hover:text-foreground"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label || `Follow us on ${social.platform}`}
-                >
-                  <Icon name={getSocialIcon(social.platform)} size="md" />
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-[var(--space-stack-lg)]">
+          {/* Logo & Tagline */}
+          {!hideLogo && (
+            <div class="flex flex-col items-center md:items-start gap-2">
+              {hasLogoSlot ? (
+                <slot name="logo" />
+              ) : (
+                <a href="/" class="flex items-center gap-2">
+                  <Logo size="sm" />
+                  <span class="font-display text-lg font-bold text-brand-500">
+                    {siteConfig.name}
+                  </span>
                 </a>
-              ))}
+              )}
+              {(hasTaglineSlot || tagline) && (
+                <p class="text-sm text-foreground-muted">
+                  {hasTaglineSlot ? <slot name="tagline" /> : tagline}
+                </p>
+              )}
             </div>
-          )
+          )}
+
+          {/* Navigation Links */}
+          <nav class="flex flex-wrap justify-center gap-[var(--space-inline-lg)] md:gap-[var(--space-stack-lg)] text-sm font-medium text-foreground-muted">
+            {allNavItems.map((item) => (
+              <a
+                href={item.href}
+                class="transition-colors hover:text-foreground"
+                target={item.external || item.href.startsWith('http') ? '_blank' : undefined}
+                rel={item.external || item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Social Links */}
+          {showSocial && socialLinks.length > 0 && (
+            hasSocialSlot ? (
+              <slot name="social" />
+            ) : (
+              <div class="flex items-center gap-[var(--space-stack-md)]">
+                {socialLinks.map((social) => (
+                  <a
+                    href={social.href}
+                    class="transition-colors text-foreground-muted hover:text-foreground"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label || `Follow us on ${social.platform}`}
+                  >
+                    <Icon name={getSocialIcon(social.platform)} size="md" />
+                  </a>
+                ))}
+              </div>
+            )
+          )}
+        </div>
+
+        {/* Legal links */}
+        {legalLinks.length > 0 && (
+          <div class="border-t border-border pt-4 flex flex-wrap justify-center gap-4">
+            {legalLinks.map((link) => (
+              <a href={link.href} class="text-xs text-foreground-subtle hover:text-foreground-muted transition-colors">
+                {link.label}
+              </a>
+            ))}
+          </div>
         )}
       </div>
     )}
