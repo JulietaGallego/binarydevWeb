@@ -97,17 +97,19 @@ const topics = ['Diseño web', 'Estrategia digital', 'E-commerce', 'UX & Accesib
       )}
 
       {regularPosts.length > 0 ? (
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="blog-masonry">
           {regularPosts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              description={post.data.description}
-              href={getPostUrl(post.id)}
-              publishedAt={post.data.publishedAt}
-              tags={post.data.tags}
-              author={post.data.author}
-              image={post.data.image}
-            />
+            <div class="blog-masonry-item">
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                href={getPostUrl(post.id)}
+                publishedAt={post.data.publishedAt}
+                tags={post.data.tags}
+                author={post.data.author}
+                image={post.data.image}
+              />
+            </div>
           ))}
         </div>
       ) : (
@@ -126,3 +128,21 @@ const topics = ['Diseño web', 'Estrategia digital', 'E-commerce', 'UX & Accesib
   <CTA />
 
 </PageLayout>
+
+<style>
+  .blog-masonry {
+    columns: 1;
+    column-gap: 2rem;
+  }
+  @media (min-width: 640px) {
+    .blog-masonry { columns: 2; }
+  }
+  @media (min-width: 1024px) {
+    .blog-masonry { columns: 3; }
+  }
+
+  .blog-masonry-item {
+    break-inside: avoid;
+    margin-bottom: 2.5rem;
+  }
+</style>
