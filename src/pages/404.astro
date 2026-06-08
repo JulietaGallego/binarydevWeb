@@ -40,7 +40,7 @@ import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 
         <!-- Snake Game -->
         <div class="mb-10">
-          <div class="relative inline-block rounded-2xl border border-border bg-card overflow-hidden shadow-lg">
+          <div class="relative rounded-2xl border border-border bg-card overflow-hidden shadow-lg w-full max-w-[400px] mx-auto">
             <!-- Score bar -->
             <div class="flex items-center justify-between px-4 py-2 border-b border-border bg-background-secondary">
               <span class="text-xs text-foreground-muted font-medium">VIBORITA 404</span>
@@ -49,7 +49,7 @@ import Icon from '@/components/ui/primitives/Icon/Icon.astro';
                 <span class="text-xs text-foreground-muted">récord: <span id="highscore" class="text-foreground font-bold">0</span></span>
               </div>
             </div>
-            <canvas id="snake-canvas" width="400" height="400"></canvas>
+            <canvas id="snake-canvas" width="400" height="400" style="width:100%;height:auto;display:block;"></canvas>
             <!-- Overlay -->
             <div id="game-overlay" class="absolute inset-0 top-[37px] flex flex-col items-center justify-center bg-card/90 backdrop-blur-sm">
               <p id="overlay-title" class="text-lg font-bold text-foreground mb-1">¿Jugamos?</p>
