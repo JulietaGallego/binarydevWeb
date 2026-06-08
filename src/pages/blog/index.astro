@@ -60,33 +60,7 @@ const topics = ['Diseño web', 'Estrategia digital', 'E-commerce', 'UX & Accesib
     </div>
   </section>
 
-  <!-- ── Posts destacados ───────────────────────────────────────── -->
-  {featuredPosts.length > 0 && (
-    <section class="py-16 lg:py-20">
-      <div class="mx-auto max-w-6xl px-6">
-        <h2 class="font-display mb-8 flex items-center gap-2 text-xl font-bold text-foreground">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-brand-500" aria-hidden="true">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-          </svg>
-          Destacados
-        </h2>
-        <div class="grid gap-6 md:grid-cols-2">
-          {featuredPosts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              description={post.data.description}
-              href={getPostUrl(post.id)}
-              publishedAt={post.data.publishedAt}
-              tags={post.data.tags}
-              author={post.data.author}
-              image={post.data.image}
-              featured={true}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+
 
   <!-- ── Todos los posts ────────────────────────────────────────── -->
   <section class:list={["pb-20 lg:pb-28", featuredPosts.length > 0 && nonFeaturedPosts.length > 0 ? "bg-background-secondary pt-16" : "pt-0"]}>
