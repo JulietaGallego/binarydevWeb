@@ -49,38 +49,21 @@ export interface SiteConfig {
 }
 
 const siteConfig: SiteConfig = {
-  name: 'Velocity',
-  description: 'A modern website built with Astro and Tailwind CSS',
-  url: SITE_URL || 'https://example.com',
+  name: 'BinaryDev',
+  description: 'Diseño y desarrollo web a medida en Buenos Aires. Sitios institucionales, tiendas e-commerce y automatización de procesos.',
+  url: SITE_URL || 'https://binarydev.com.ar',
   ogImage: '/og-default.png',
-  author: 'Southwell Media',
-  // Demo contact info - replace with your actual business details
-  email: 'hello@example.com',
-  phone: '+1 (555) 123-4567',
-  address: {
-    street: '123 Main St',
-    city: 'Dallas',
-    state: 'TX',
-    zip: '75001',
-    country: 'US',
-  },
-  socialLinks: [
-    'https://github.com/southwellmedia',
-  ],
-  // Twitter metadata - update with your actual handles or remove
-  // twitter: {
-  //   site: '@yourhandle',
-  //   creator: '@yourhandle',
-  // },
+  author: 'Julieta Gallego',
+  email: 'julieta@binarydev.com.ar',
+  phone: '+5492477235288',
+  socialLinks: [],
   verification: {
     google: GOOGLE_SITE_VERIFICATION,
     bing: BING_SITE_VERIFICATION,
   },
-  // Branding: Logo files live in src/assets/branding/
-  // Replace the SVG files there with your own branding
   branding: {
     logo: {
-      alt: 'Velocity',
+      alt: 'BinaryDev',
     },
     favicon: {
       svg: '/favicon.svg',
