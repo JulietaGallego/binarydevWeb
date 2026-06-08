@@ -16,21 +16,25 @@ const reversed = index % 2 !== 0;
 ---
 
 <article class:list={[
-  "group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl border border-border bg-card overflow-hidden transition-shadow duration-200 hover:shadow-lg",
+  "group grid grid-cols-1 md:grid-cols-2 gap-4",
   reversed && "md:[&>*:first-child]:order-2 md:[&>*:last-child]:order-1"
 ]}>
 
   <!-- Imagen -->
-  <div class="aspect-video md:aspect-auto overflow-hidden bg-secondary">
+  <div
+    class="tilt-card aspect-video md:aspect-auto min-h-[220px] rounded-2xl overflow-hidden border border-border bg-secondary"
+    style="transform-style: preserve-3d; will-change: transform;"
+  >
     {image ? (
       <img
         src={image}
         alt={`Mockup de ${title}`}
-        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        class="w-full h-full object-cover"
         loading="lazy"
+        draggable="false"
       />
     ) : (
-      <div class="w-full h-full min-h-[220px] flex items-center justify-center bg-gradient-to-br from-brand-500/10 to-brand-500/5">
+      <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-brand-500/10 to-brand-500/5">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
           fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
           stroke-linejoin="round" class="text-brand-500/30" aria-hidden="true">
@@ -42,7 +46,7 @@ const reversed = index % 2 !== 0;
   </div>
 
   <!-- Texto -->
-  <div class="flex flex-col justify-center gap-4 p-8 md:p-10">
+  <div class="flex flex-col justify-start gap-4 rounded-2xl border border-border bg-card p-8 md:p-10">
 
     {tags.length > 0 && (
       <div class="flex flex-wrap gap-1.5">
@@ -72,3 +76,25 @@ const reversed = index % 2 !== 0;
 
   </div>
 </article>
+
+<script>
+  // Tilt solo en dispositivos con mouse (no touch)
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll<HTMLElement>('.tilt-card').forEach((card) => {
+      const STRENGTH = 12;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width  - 0.5;
+        const y = (e.clientY - rect.top)  / rect.height - 0.5;
+        card.style.transition = 'transform 0.08s ease-out';
+        card.style.transform = `perspective(600px) rotateY(${x * STRENGTH}deg) rotateX(${-y * STRENGTH}deg) scale3d(1.02,1.02,1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 0.4s ease-out';
+        card.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)';
+      });
+    });
+  }
+</script>
