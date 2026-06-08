@@ -1,8 +1,9 @@
 {
-  "title": "Proyecto sin URL activa",
-  "description": "Proyecto anterior interesante que ya no está en producción. Se puede mostrar igual como muestra de trabajo.",
-  "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop",
-  "tags": ["WordPress", "WooCommerce"],
+  "title": "Grupo Sagüés",
+  "description": "Diseño y desarrollo de sitio web institucional con descarga de catálogo en PDF",
+  "image": "../../../public/images/projects/mockup-sagues.webp",
+  "tags": ["WordPress"],
+   "url": "https://gruposagues.com.ar/",
   "featured": true,
   "order": 3,
   "draft": false

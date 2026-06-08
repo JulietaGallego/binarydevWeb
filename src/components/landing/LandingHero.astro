@@ -17,7 +17,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
   <div class="hero-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
   <!-- ── Layout ─────────────────────────────────────────────── -->
-  <div class="relative z-10 mx-auto w-full max-w-6xl px-6 py-28 lg:py-36">
+  <div class="relative z-10 mx-auto w-full max-w-[80vw] px-6 py-28 lg:py-36">
     <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
       <!-- Columna texto -->
@@ -42,20 +42,20 @@ import Button from '@/components/ui/form/Button/Button.astro';
 
         <!-- Descripción -->
         <p class="mb-10 max-w-lg text-lg leading-relaxed text-gray-400">
-          Diseño, desarrollo y estrategia digital para negocios que quieren crecer en internet. Sin templates genéricos. Tu web, tu identidad.
+          Ordená tu catálogo, centralizá tus consultas y automatizá tus ventas a través de un sistema estable que te ahorra tiempo y administración diaria
         </p>
 
         <!-- CTAs -->
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
           <Button
-            href="/contacto"
+            href="#quiz"
             size="lg"
             class="group relative overflow-hidden bg-brand-500 text-white shadow-lg shadow-brand-500/25 hover:bg-brand-400 transition-all duration-300"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
             </svg>
-            Hablemos de tu proyecto
+            ¿Qué web necesitás?
           </Button>
 
           <Button
@@ -64,7 +64,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
             variant="outline"
             class="border-white/15 bg-white/5 text-white backdrop-blur-sm hover:bg-white/10 hover:border-white/30 transition-all duration-300"
           >
-            ¿Qué web necesitás?
+            Portfolio
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m9 18 6-6-6-6"/>
             </svg>
@@ -97,7 +97,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
           <div class="absolute -inset-4 rounded-3xl bg-brand-500/20 blur-3xl" aria-hidden="true"></div>
 
           <!-- Imagen principal -->
-          <!-- Reemplazá /images/hero-laptop.webp con tu foto real -->
+    
           <div class="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
             <img
               src="/images/ctabg-woman-typing.webp"
@@ -111,7 +111,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
           </div>
 
           <!-- Badge 1: Diseño accesible (top-left) -->
-          <div class="hero-badge hero-badge-1 absolute -left-5 top-6 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
+          <div class="hero-badge hero-badge-1 absolute -left-20 top-30 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
             <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-500/20">
               <!-- Ojo / accesibilidad -->
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-400" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -123,7 +123,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
           </div>
 
           <!-- Badge 2: UX (top-right) -->
-          <div class="hero-badge hero-badge-2 absolute -right-5 top-6 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
+          <div class="hero-badge hero-badge-2 absolute -right-16 top-6 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
             <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-yellow/15">
               <!-- Cursor / UX -->
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent-yellow-dark" aria-hidden="true"><path d="m4 4 7.07 17 2.51-7.42L21 11.07z"/></svg>
@@ -135,7 +135,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
           </div>
 
           <!-- Badge 3: E-commerce (bottom-left) -->
-          <div class="hero-badge hero-badge-3 absolute -left-5 bottom-10 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
+          <div class="hero-badge hero-badge-3 absolute -left-4 bottom-12 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
             <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-500/15">
               <!-- Carrito -->
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -147,7 +147,7 @@ import Button from '@/components/ui/form/Button/Button.astro';
           </div>
 
           <!-- Badge 4: SEO (bottom-right) -->
-          <div class="hero-badge hero-badge-4 absolute -right-5 bottom-10 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
+          <div class="hero-badge hero-badge-4 absolute -right-4 bottom-32 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
             <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-orange-500/15">
               <!-- Gráfico de barras / SEO -->
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-400" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>

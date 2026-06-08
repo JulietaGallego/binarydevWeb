@@ -1,0 +1,9 @@
+{
+  "title": "Vivir Livianos",
+  "description": "Diseño y desarrollo de sitio web institucional con blog",
+  "image": "../../../public/images/projects/mockup-vl.webp",
+  "tags": ["WordPress", "Woocommerce"],
+  "featured": false,
+  
+  "draft": false
+}
