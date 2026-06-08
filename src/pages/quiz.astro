@@ -1,0 +1,40 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import { Hero } from '@/components/hero';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import CTA from '@/components/landing/CTA.astro';
+---
+
+<PageLayout
+  title="¿Qué web necesitás? — BinaryDev"
+  description="Respondé estas preguntas y te ayudo a entender qué tipo de sitio web necesita tu negocio."
+>
+  <Hero layout="centered" size="sm" showGrid>
+    <Badge slot="badge" pill>Quiz</Badge>
+
+    <h1 slot="title">
+      ¿Qué web
+      <span class="text-brand-500"> necesitás?</span>
+    </h1>
+
+    <p slot="description">
+      Respondé unas preguntas rápidas y te cuento qué solución se adapta mejor a tu negocio.
+    </p>
+  </Hero>
+
+  <section class="py-16 pb-32">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <div class="rounded-2xl border border-border bg-card p-12">
+        <p class="text-foreground-muted text-lg">El quiz está en construcción. Mientras tanto, escribime directamente.</p>
+        <a
+          href="/contacto"
+          class="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-600 transition-colors"
+        >
+          Hablemos de tu proyecto →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</PageLayout>
