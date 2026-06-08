@@ -83,6 +83,10 @@
   --color-brand-800: var(--brand-800);
   --color-brand-900: var(--brand-900);
 
+  /* Accent Yellow — complementario de marca (#deeb87) */
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-yellow-dark: var(--accent-yellow-dark);
+
   /* Font Sizes - matches original design scale */
   --font-size-xs: 0.75rem;     /* 12px */
   --font-size-sm: 0.875rem;    /* 14px */
