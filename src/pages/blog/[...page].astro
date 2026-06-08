@@ -12,13 +12,12 @@ export async function getStaticPaths({ paginate }: any) {
     import.meta.env.PROD ? data.draft !== true : true
   );
   const posts = allPosts
-    .filter((p: any) => p.data.locale === 'en')
     .sort((a: any, b: any) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
   return paginate(posts, { pageSize: 6 });
 }
 
 const { page } = Astro.props as any;
-const getPostUrl = (id: string) => `/blog/${id.replace('en/', '')}`;
+const getPostUrl = (id: string) => `/blog/${id}`;
 
 ---
 
