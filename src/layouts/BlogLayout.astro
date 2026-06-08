@@ -126,5 +126,15 @@ const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
     )
   }
 
-  <Footer slot="footer" layout="simple" background="secondary" showCopyright={false} />
+  <Footer
+    slot="footer"
+    layout="simple"
+    background="secondary"
+    showCopyright={false}
+    legalLinks={[
+      { label: 'Privacidad', href: '/legal/privacidad' },
+      { label: 'Términos y Condiciones', href: '/legal/terminos' },
+      { label: 'Cookies', href: '/legal/cookies' },
+    ]}
+  />
 </BaseLayout>
