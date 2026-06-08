@@ -2,6 +2,7 @@
 import PageLayout from '@/layouts/PageLayout.astro';
 import { Hero } from '@/components/hero';
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import QuizSection from '@/components/landing/QuizSection.astro';
 import CTA from '@/components/landing/CTA.astro';
 ---
 
@@ -22,19 +23,7 @@ import CTA from '@/components/landing/CTA.astro';
     </p>
   </Hero>
 
-  <section class="py-16 pb-32">
-    <div class="mx-auto max-w-2xl px-6 text-center">
-      <div class="rounded-2xl border border-border bg-card p-12">
-        <p class="text-foreground-muted text-lg">El quiz está en construcción. Mientras tanto, escribime directamente.</p>
-        <a
-          href="/contacto"
-          class="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-600 transition-colors"
-        >
-          Hablemos de tu proyecto →
-        </a>
-      </div>
-    </div>
-  </section>
+  <QuizSection />
 
   <CTA />
 </PageLayout>
