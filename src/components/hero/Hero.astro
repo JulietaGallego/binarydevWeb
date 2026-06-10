@@ -14,6 +14,8 @@ interface Props extends HTMLAttributes<'section'> {
   showBlob?: boolean;
   /** Blob position (only applies when showBlob is true) */
   blobPosition?: 'left' | 'right' | 'center';
+  /** Stick the hero to the top so the next section scrolls over it */
+  sticky?: boolean;
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   showGrid = false,
   showBlob = false,
   blobPosition = 'right',
+  sticky = false,
   class: className,
   ...attrs
 } = Astro.props;
@@ -39,7 +42,11 @@ const alignment = layout === 'centered' ? 'text-center items-center' : 'text-lef
 const isSplit = layout === 'split' || layout === 'split-wide';
 
 // Compute classes
-const sectionClasses = cn(heroSectionVariants({ size }), className);
+const sectionClasses = cn(
+  heroSectionVariants({ size }),
+  sticky && 'sticky top-0 z-0',
+  className
+);
 
 const contentClasses = cn(
   'z-10 flex flex-col',
