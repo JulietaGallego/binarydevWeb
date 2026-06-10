@@ -16,7 +16,29 @@ import FeaturedProjects from '@/components/landing/FeaturedProjects.astro';
   title="BinaryDev — Diseño y desarrollo web"
   description="Diseño, desarrollo y estrategia digital para negocios que quieren crecer en internet. Webs que convierten visitas en clientes."
 >
-  <Hero layout="centered" size="xl" showGrid>
+  <Hero layout="split-wide" size="xl" showGrid>
+
+    <!-- Col 1 (30%): aside — ubicación + servicios -->
+    <div slot="aside" class="flex flex-col justify-between h-full gap-10 py-4">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-foreground-muted mb-1">Ubicación</p>
+        <p class="text-sm font-medium text-foreground">Pergamino, Buenos Aires</p>
+        <p class="text-sm text-foreground-muted">Argentina</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-widest text-foreground-muted mb-3">Servicios</p>
+        <ul class="flex flex-col gap-1.5 text-sm text-foreground-muted">
+          {['Diseño web', 'Desarrollo', 'E-commerce', 'UX / UI', 'SEO técnico', 'Automatizaciones'].map(s => (
+            <li class="flex items-center gap-2">
+              <span class="h-px w-4 bg-brand-500/60 shrink-0"></span>
+              {s}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Col 2 (70%): título + descripción + botones -->
     <Badge slot="badge" pill>Diseño web · Buenos Aires</Badge>
 
     <h1 slot="title">
