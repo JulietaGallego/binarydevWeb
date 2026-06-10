@@ -17,7 +17,7 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
 ---
 
 <article class:list={[
-  "group grid grid-cols-1 md:items-start gap-4",
+  "group grid grid-cols-1 md:items-stretch gap-4",
   reversed ? "md:grid-cols-[40%_60%]" : "md:grid-cols-[60%_40%]",
   reversed && "md:[&>*:first-child]:order-2 md:[&>*:last-child]:order-1"
 ]}>
@@ -47,8 +47,10 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
     )}
   </div>
 
-  <!-- Texto -->
-  <div class="flex flex-col justify-start gap-4 rounded-2xl border border-border bg-card p-8 md:p-10 md:sticky md:top-28 md:self-start">
+  <!-- Columna texto: se estira al alto de la imagen -->
+  <div class="md:h-full">
+    <!-- Card con borde: sticky dentro de la columna alta -->
+    <div class="flex flex-col justify-start gap-4 rounded-2xl border border-border bg-card p-8 md:p-10 md:sticky md:top-28">
 
     <h3 class="text-xl font-bold text-foreground leading-snug">{title}</h3>
 
@@ -82,6 +84,7 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
       </div>
     )}
 
+    </div>
   </div>
 </article>
 
