@@ -81,11 +81,11 @@ const firstStep = getStep(1);
           <button
             type="button"
             data-option-id={opt.id}
-            class="quiz-option group w-full text-left rounded-xl border border-border bg-card p-4 md:p-5 hover:border-brand-500 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99] transition-all duration-200"
+            class="quiz-option group w-full text-left rounded-xl border border-border bg-card p-4 md:p-5 hover:-translate-y-0.5 hover:scale-[1.015] hover:bg-brand-500/[0.04] hover:border-brand-500 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99] transition-all duration-200"
           >
             <div class="flex items-start gap-3">
               <span
-                class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 border-border group-hover:border-brand-500 transition-colors"
+                class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 border-border group-hover:border-brand-500 group-hover:bg-brand-500/20 group-hover:scale-110 transition-all duration-200"
                 aria-hidden="true"
               ></span>
               <div>
@@ -185,7 +185,7 @@ const firstStep = getStep(1);
         "quiz-option group w-full text-left",
         "rounded-xl border border-border bg-card",
         "p-4 md:p-5",
-        "hover:border-brand-500 hover:shadow-md",
+        "hover:-translate-y-0.5 hover:scale-[1.015] hover:bg-brand-500/[0.04] hover:border-brand-500 hover:shadow-lg",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500",
         "active:scale-[0.99] transition-all duration-200",
       ].join(" ");
@@ -194,7 +194,7 @@ const firstStep = getStep(1);
         <div class="flex items-start gap-3">
           <span
             class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 border-border
-                   group-hover:border-brand-500 transition-colors"
+                   group-hover:border-brand-500 group-hover:bg-brand-500/20 group-hover:scale-110 transition-all duration-200"
             aria-hidden="true"
           ></span>
           <div>

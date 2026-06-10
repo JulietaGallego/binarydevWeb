@@ -1,5 +1,7 @@
 ---
 import DiagnosticQuiz from '@/components/patterns/DiagnosticQuiz.astro';
+import TextAnimation from '@/components/ui/scroll-text';
+import { FadeIn } from '@/components/ui/scroll-text';
 
 interface Props {
   title?: string;
@@ -7,24 +9,59 @@ interface Props {
   className?: string;
 }
 
-const { 
-  title = "¿Qué necesitás resolver hoy?", 
+const {
+  title = "¿Qué necesitás resolver hoy?",
   subtitle = "Respondé estas 3 preguntas y en menos de 1 minuto vas a saber exactamente qué servicio o desarrollo te hace falta para ordenar tu negocio y dejar de perder tiempo.",
-  className 
+  className
 } = Astro.props;
+
+const marqueeText = `${title} · `;
 ---
 
-<section class={`relative z-10 py-16 px-4 md:py-24 bg-background border-t border-b border-border/60 ${className || ''}`} id="quiz">
-  <div class="max-w-4xl mx-auto text-center mb-12">
-    <h2 class="text-xl font-black text-foreground tracking-tight leading-tight">
-      {title}
-    </h2>
-    <p class="mt-4 text-base text-foreground-muted leading-relaxed">
-      {subtitle}
-    </p>
+<section class={`relative z-10 py-16 px-4 md:py-24 bg-background border-t border-b border-border/60 overflow-hidden ${className || ''}`} id="quiz">
+
+  <!-- Marquesina decorativa de fondo -->
+  <div class="pointer-events-none select-none absolute inset-0 flex items-center" aria-hidden="true">
+    <div class="marquee-track flex whitespace-nowrap">
+      {[0, 1].map(() => (
+        <span class="text-[clamp(4rem,10vw,8rem)] font-black uppercase tracking-widest text-foreground opacity-[0.025] px-10 shrink-0">
+          {marqueeText.repeat(6)}
+        </span>
+      ))}
+    </div>
   </div>
 
-  <div class="w-full">
+  <!-- Contenido -->
+  <div class="relative max-w-4xl mx-auto text-center mb-12">
+    <TextAnimation
+      client:visible
+      text={title}
+      as="h2"
+      classname="text-xl font-black text-foreground tracking-tight leading-tight"
+      direction="up"
+      duration={0.5}
+      style="reveal"
+    />
+    <FadeIn client:visible delay={0.15}>
+      <p class="mt-4 text-base text-foreground-muted leading-relaxed">
+        {subtitle}
+      </p>
+    </FadeIn>
+  </div>
+
+  <div class="relative w-full">
     <DiagnosticQuiz />
   </div>
+
 </section>
+
+<style>
+  .marquee-track {
+    animation: marquee-scroll 30s linear infinite;
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+</style>
