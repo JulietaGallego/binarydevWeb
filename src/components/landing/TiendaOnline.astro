@@ -1,4 +1,6 @@
 ---
+import TextAnimation from '@/components/ui/scroll-text';
+
 const features = [
   { title: 'Pagos integrados', description: 'Mercado Pago, tarjetas y transferencias. Tus clientes eligen cómo pagar.' },
   { title: 'Control de stock', description: 'Catálogo sincronizado en tiempo real para evitar ventas de productos sin existencia.' },
@@ -94,9 +96,13 @@ const products = [
           Tienda online
         </p>
 
-        <h2 class="font-display mb-5 text-3xl font-bold text-balance leading-tight md:text-4xl">
-          Dejá de vender por WhatsApp. Tu tienda trabaja mientras dormís.
-        </h2>
+        <TextAnimation
+          client:visible
+          text="Dejá de vender por WhatsApp. Tu tienda trabaja mientras dormís."
+          classname="font-display mb-5 text-3xl font-bold leading-tight text-foreground md:text-4xl"
+          direction="up"
+          duration={0.6}
+        />
 
         <div class="space-y-4 text-lg leading-relaxed text-foreground-muted">
           <p>
