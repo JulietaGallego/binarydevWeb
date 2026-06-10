@@ -60,12 +60,27 @@ function updateScroll(
   cta: HTMLElement
 ) {
   const rect = section.getBoundingClientRect();
-  const progress = Math.min(1, Math.max(0, 1 - rect.top / window.innerHeight));
+  const vh = window.innerHeight;
+
+  // progress: 0 cuando el top de la sección toca el bottom del viewport
+  //           1 cuando el top de la sección llega al top del viewport
+  const raw = 1 - rect.top / vh;
+  const progress = Math.min(1, Math.max(0, raw));
   const eased = easeInOut(progress);
 
-  // Tamaño del título: de FONT_MAX_VW a FONT_MIN_REM
+  // Solo aplicar fuente grande cuando la sección ya está entrando al viewport
   const vwPx = window.innerWidth / 100;
-  const fsPx = lerp(FONT_MAX_VW * vwPx, FONT_MIN_REM * 16, eased);
+  const fontMax = FONT_MAX_VW * vwPx;
+  const fontMin = FONT_MIN_REM * 16;
+
+  // Si la sección aún no entró, forzar tamaño mínimo y no mover nada
+  if (raw <= 0) {
+    title.style.fontSize = `${fontMin}px`;
+    title.style.transform = 'translateX(0)';
+    return;
+  }
+
+  const fsPx = lerp(fontMax, fontMin, eased);
   title.style.fontSize = `${fsPx}px`;
 
   // Posición: de centrado a izquierda
