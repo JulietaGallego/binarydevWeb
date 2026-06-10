@@ -1,251 +1,78 @@
 ---
+import { Hero } from '@/components/hero';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 ---
 
-<section id="hero" class="hero-section relative min-h-screen overflow-hidden flex items-center">
+<div class="relative">
+  <Hero layout="centered" size="xl" showGrid class="min-h-screen">
+    <Badge slot="badge" pill>Diseño web · Buenos Aires</Badge>
 
-  <!-- ── Fondo ───────────────────────────────────────────────── -->
-  <div class="absolute inset-0 bg-gray-950"></div>
+    <h1 slot="title">
+      Webs que convierten<br />
+      <span class="text-brand-500">visitas en clientes.</span>
+    </h1>
 
-  <!-- Glow violeta diagonal -->
-  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-    <div class="hero-glow-1 absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full bg-brand-500/20 blur-[140px]"></div>
-    <div class="hero-glow-2 absolute bottom-0 left-1/4 h-[400px] w-[400px] rounded-full bg-brand-700/15 blur-[120px]"></div>
-  </div>
+    <p slot="description">
+      Diseño y desarrollo sitios web a medida para negocios que quieren crecer en internet. Sin templates genéricos, sin soluciones de una sola talla.
+    </p>
 
-  <!-- Grid sutil -->
-  <div class="hero-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
-
-  <!-- ── Layout ─────────────────────────────────────────────── -->
-  <div class="relative z-10 mx-auto w-full max-w-[80vw] px-6 py-28 lg:py-36">
-    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-
-      <!-- Columna texto -->
-      <div class="order-2 lg:order-1">
-
-        <!-- Badge -->
-        <div class="mb-8 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-1.5 backdrop-blur-sm">
-          <span class="h-2 w-2 animate-pulse rounded-full bg-brand-400"></span>
-          <span class="text-xs font-bold uppercase tracking-widest text-brand-300">Diseño web · Buenos Aires</span>
-        </div>
-
-        <!-- Título -->
-        <h1 class="font-display mb-6 text-4xl font-black leading-[1.08] tracking-tight text-white text-balance sm:text-5xl lg:text-6xl xl:text-7xl">
-          Webs que
-          <span class="hero-highlight relative inline-block text-white">
-            convierten
-            <span class="hero-underline absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-gradient-to-r from-brand-400 to-accent-yellow"></span>
-          </span>
-          <br/>
-          <span class="text-brand-400">visitas en clientes.</span>
-        </h1>
-
-        <!-- Descripción -->
-        <p class="mb-10 max-w-lg text-lg leading-relaxed text-gray-400">
-          Ordená tu catálogo, centralizá tus consultas y automatizá tus ventas a través de un sistema estable que te ahorra tiempo y administración diaria
-        </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Button
-            href="#quiz"
-            size="lg"
-            class="group relative overflow-hidden bg-brand-500 text-white shadow-lg shadow-brand-500/25 hover:bg-brand-400 transition-all duration-300"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-            ¿Qué web necesitás?
-          </Button>
-
-          <Button
-            href="#quiz"
-            size="lg"
-            variant="outline"
-            class="border-white/15 bg-white/5 text-white backdrop-blur-sm hover:bg-white/10 hover:border-white/30 transition-all duration-300"
-          >
-            Portfolio
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m9 18 6-6-6-6"/>
-            </svg>
-          </Button>
-        </div>
-
-        <!-- Promesas de servicio -->
-        <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/10 pt-8">
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-400 shrink-0" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <p class="text-sm font-semibold text-gray-300">Sitio listo en 3–4 semanas</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-400 shrink-0" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <p class="text-sm font-semibold text-gray-300">Diseño 100% a medida</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-400 shrink-0" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <p class="text-sm font-semibold text-gray-300">Soporte post-lanzamiento</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Columna imagen -->
-      <div class="order-1 lg:order-2">
-        <div class="hero-image-wrapper relative">
-
-          <!-- Glow detrás de la imagen -->
-          <div class="absolute -inset-4 rounded-3xl bg-brand-500/20 blur-3xl" aria-hidden="true"></div>
-
-          <!-- Imagen principal -->
-    
-          <div class="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
-            <img
-              src="/images/ctabg-woman-typing.webp"
-              alt="Diseño y desarrollo web profesional"
-              class="hero-img aspect-[4/3] w-full object-cover object-center lg:aspect-[3/4]"
-              loading="eager"
-              decoding="async"
-            />
-            <!-- Gradiente sobre la foto -->
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-950/60 via-transparent to-brand-900/20"></div>
-          </div>
-
-          <!-- Badge 1: Diseño accesible (top-left) -->
-          <div class="hero-badge hero-badge-1 absolute -left-20 top-30 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
-            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-500/20">
-              <!-- Ojo / accesibilidad -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-400" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-white leading-tight">Diseño accesible</p>
-              <p class="text-[11px] text-gray-400">WCAG 2.1 AA</p>
-            </div>
-          </div>
-
-          <!-- Badge 2: UX (top-right) -->
-          <div class="hero-badge hero-badge-2 absolute -right-16 top-6 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
-            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-yellow/15">
-              <!-- Cursor / UX -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent-yellow-dark" aria-hidden="true"><path d="m4 4 7.07 17 2.51-7.42L21 11.07z"/></svg>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-white leading-tight">UX estratégico</p>
-              <p class="text-[11px] text-gray-400">Centrado en usuario</p>
-            </div>
-          </div>
-
-          <!-- Badge 3: E-commerce (bottom-left) -->
-          <div class="hero-badge hero-badge-3 absolute -left-4 bottom-12 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
-            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-500/15">
-              <!-- Carrito -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-white leading-tight">E-commerce</p>
-              <p class="text-[11px] text-gray-400">Tiendas que venden</p>
-            </div>
-          </div>
-
-          <!-- Badge 4: SEO (bottom-right) -->
-          <div class="hero-badge hero-badge-4 absolute -right-4 bottom-32 flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/90 px-4 py-3 shadow-xl backdrop-blur-md">
-            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-orange-500/15">
-              <!-- Gráfico de barras / SEO -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-400" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-white leading-tight">SEO técnico</p>
-              <p class="text-[11px] text-gray-400">Posicionamiento real</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
+    <div slot="actions" class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center w-full">
+      <Button href="/quiz" size="lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        ¿Qué web necesitás?
+      </Button>
+      <Button href="/proyectos" variant="outline" size="lg">
+        Portfolio
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </Button>
     </div>
-  </div>
+
+    <!-- Service promises -->
+    <div class="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-6">
+      {[
+        'Mobile-first y accesible',
+        'SEO técnico incluido',
+        'Carga ultrarrápida',
+      ].map((item) => (
+        <span class="flex items-center gap-2 text-sm text-foreground-muted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" class="shrink-0 text-brand-500" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          {item}
+        </span>
+      ))}
+    </div>
+  </Hero>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40" aria-hidden="true">
-    <span class="text-[10px] font-bold uppercase tracking-widest text-white">scroll</span>
-    <div class="hero-scroll-dot h-6 w-px bg-white/50 relative overflow-hidden">
-      <div class="absolute top-0 h-3 w-full animate-scroll-line bg-white rounded-full"></div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-foreground-muted" aria-hidden="true">
+    <span class="text-xs uppercase tracking-widest opacity-60">scroll</span>
+    <div class="scroll-line relative h-10 w-px overflow-hidden rounded-full bg-border">
+      <div class="scroll-dot absolute top-0 left-0 h-3 w-full rounded-full bg-brand-500"></div>
     </div>
   </div>
-
-</section>
+</div>
 
 <style>
-  /* ── Grid pattern ───────────────────────────────────── */
-  .hero-grid {
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%);
+  .scroll-dot {
+    animation: scroll-down 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  /* ── Underline animado en el título ─────────────────── */
-  .hero-underline {
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: underline-grow 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-  }
-  @keyframes underline-grow {
-    to { transform: scaleX(1); }
-  }
-
-  /* ── Imagen: zoom suave al cargar ───────────────────── */
-  .hero-img {
-    animation: img-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  @keyframes img-reveal {
-    from { transform: scale(1.06); opacity: 0; }
-    to   { transform: scale(1);    opacity: 1; }
-  }
-
-  /* ── Badges flotantes ───────────────────────────────── */
-  .hero-badge {
-    animation: badge-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  .hero-badge-1 { animation-delay: 0.5s; }
-  .hero-badge-2 { animation-delay: 0.7s; }
-  .hero-badge-3 { animation-delay: 0.9s; }
-
-  @keyframes badge-in {
-    from { opacity: 0; transform: translateY(12px) scale(0.95); }
-    to   { opacity: 1; transform: translateY(0)    scale(1); }
-  }
-
-  /* Float continuo sutil */
-  .hero-badge-1 { animation: badge-in 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both, float-badge 6s ease-in-out 1.3s infinite; }
-  .hero-badge-2 { animation: badge-in 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s both, float-badge 8s ease-in-out 1.5s infinite reverse; }
-  .hero-badge-3 { animation: badge-in 0.8s cubic-bezier(0.16,1,0.3,1) 0.9s both, float-badge 7s ease-in-out 1.7s infinite; }
-  .hero-badge-4 { animation: badge-in 0.8s cubic-bezier(0.16,1,0.3,1) 1.1s both, float-badge 9s ease-in-out 1.9s infinite reverse; }
-
-  @keyframes float-badge {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-6px); }
-  }
-
-  /* ── Scroll indicator ───────────────────────────────── */
-  @keyframes scroll-line {
-    0%   { top: -100%; }
-    100% { top: 100%;  }
-  }
-  .animate-scroll-line {
-    animation: scroll-line 1.6s ease-in-out infinite;
-  }
-
-  /* ── Entrada del texto ──────────────────────────────── */
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-section h1,
-    .hero-section p,
-    .hero-section .hero-badge-area {
-      animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-  }
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+  @keyframes scroll-down {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: translateY(400%); opacity: 0; }
   }
 </style>
