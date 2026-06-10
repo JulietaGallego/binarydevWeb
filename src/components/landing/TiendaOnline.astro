@@ -1,17 +1,12 @@
 ---
 import TextAnimation from '@/components/ui/scroll-text';
 import { FadeIn } from '@/components/ui/scroll-text';
+import MockupTiendaOnline from './MockupTiendaOnline';
 
 const features = [
   { title: 'Pagos integrados', description: 'Mercado Pago, tarjetas y transferencias. Tus clientes eligen cómo pagar.' },
   { title: 'Control de stock', description: 'Catálogo sincronizado en tiempo real para evitar ventas de productos sin existencia.' },
   { title: 'Pedidos automáticos', description: 'Recibís cada orden con los datos completos, sin tener que coordinar nada por WhatsApp.' },
-];
-
-const products = [
-  { name: 'Producto destacado', price: '$12.500', badge: 'Más vendido', color: 'bg-brand-500/10' },
-  { name: 'Nuevo ingreso', price: '$8.900', badge: 'Nuevo', color: 'bg-green-500/10' },
-  { name: 'Oferta especial', price: '$6.200', badge: '-20%', color: 'bg-orange-500/10' },
 ];
 ---
 
@@ -22,75 +17,7 @@ const products = [
 
       <!-- Mockup tienda — primero en mobile, izquierda en desktop -->
       <div class="order-1">
-        <FadeIn client:visible direction="none" scale delay={0.05} className="relative mx-auto max-w-sm lg:max-w-none">
-
-          <!-- Glow -->
-          <div class="pointer-events-none absolute -top-8 -left-8 h-48 w-48 rounded-full bg-brand-500/10 blur-3xl"></div>
-
-          <!-- Pantalla tienda -->
-          <div class="relative overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
-
-            <!-- Browser chrome -->
-            <div class="flex items-center gap-3 border-b border-border bg-secondary px-4 py-3">
-              <div class="flex gap-1.5">
-                <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span>
-                <span class="h-2.5 w-2.5 rounded-full bg-yellow-400"></span>
-                <span class="h-2.5 w-2.5 rounded-full bg-green-400"></span>
-              </div>
-              <div class="flex flex-1 items-center gap-2 rounded-md bg-background px-3 py-1.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-foreground-subtle shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                <span class="text-xs text-foreground-subtle truncate">mitienda.com.ar</span>
-              </div>
-              <!-- Carrito -->
-              <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-foreground-muted"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                <span class="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-brand-500 text-[8px] font-bold text-white">2</span>
-              </div>
-            </div>
-
-            <!-- Header tienda -->
-            <div class="border-b border-border/50 bg-background px-5 py-3">
-              <div class="flex items-center justify-between">
-                <div class="h-3.5 w-24 rounded bg-foreground/20"></div>
-                <div class="flex gap-3">
-                  {['Todo', 'Ropa', 'Accesorios'].map((cat, i) => (
-                    <span class:list={["rounded-full px-2.5 py-0.5 text-[10px] font-medium", i === 0 ? "bg-brand-500 text-white" : "text-foreground-subtle"]}>{cat}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <!-- Grid de productos -->
-            <div class="grid grid-cols-3 gap-2 bg-background p-4">
-              {products.map((p) => (
-                <div class="overflow-hidden rounded-xl border border-border bg-card">
-                  <div class:list={["relative flex aspect-square items-center justify-center", p.color]}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-foreground-subtle/40" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                    <span class="absolute top-1.5 left-1.5 rounded-full bg-brand-500 px-1.5 py-0.5 text-[8px] font-bold text-white leading-none">{p.badge}</span>
-                  </div>
-                  <div class="p-2">
-                    <p class="truncate text-[10px] font-semibold text-foreground leading-tight">{p.name}</p>
-                    <p class="text-[10px] font-bold text-brand-500">{p.price}</p>
-                    <button class="mt-1.5 w-full rounded-md bg-brand-500/90 py-1 text-[9px] font-bold text-white">+ Agregar</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-
-          <!-- Badge flotante -->
-          <FadeIn client:visible spring delay={0.4} className="absolute -bottom-3 -right-3">
-            <div class="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 shadow-lg">
-              <span class="text-base">🔔</span>
-              <div>
-                <p class="text-[10px] font-bold text-foreground leading-none">Nueva venta</p>
-                <p class="text-[10px] text-foreground-subtle">hace 2 minutos</p>
-              </div>
-            </div>
-          </FadeIn>
-
-        </FadeIn>
+        <MockupTiendaOnline client:visible />
       </div>
 
       <!-- Texto — segundo en mobile, derecha en desktop -->
@@ -105,6 +32,7 @@ const products = [
           classname="font-display mb-5 text-3xl font-bold leading-tight text-foreground md:text-4xl"
           direction="up"
           duration={0.6}
+          style="reveal"
         />
 
         <FadeIn client:visible delay={0.1} className="space-y-4 text-lg leading-relaxed text-foreground-muted">
