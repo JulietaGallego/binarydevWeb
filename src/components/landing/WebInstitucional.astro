@@ -1,4 +1,6 @@
 ---
+import TextAnimation from '@/components/ui/scroll-text';
+
 const features = [
   { title: 'Diseño a medida', description: 'Estética alineada a tu identidad de marca para transmitir confianza desde el primer clic.' },
   { title: 'Centralización de consultas', description: 'Un solo lugar para recibir consultas, en vez de redes dispersas que se pierden.' },
@@ -17,9 +19,13 @@ const features = [
           Sitio web institucional
         </p>
 
-        <h2 class="font-display mb-5 text-3xl font-bold text-balance leading-tight md:text-4xl">
-          Tu empresa necesita transmitir confianza las 24 horas
-        </h2>
+        <TextAnimation
+          client:visible
+          text="Tu empresa necesita transmitir confianza las 24 horas"
+          classname="font-display mb-5 text-3xl font-bold leading-tight text-foreground md:text-4xl"
+          direction="up"
+          duration={0.6}
+        />
 
         <div class="space-y-4 text-lg leading-relaxed text-foreground-muted">
           <p>
