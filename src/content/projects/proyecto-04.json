@@ -1,7 +1,7 @@
 {
   "title": "Agro-Tech",
   "description": "Diseño y desarrollo de catálogo en línea",
-  "image": "../../../public/images/projects/mockup-agrotech.webp",
+  "image": "/images/projects/mockup-agrotech.webp",
   "tags": ["WordPress", "Woocommerce"],
    "url": "https://agro-tech.com.ar/",
   "featured": true,

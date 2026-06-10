@@ -1,7 +1,7 @@
 {
   "title": "Pergamino Muebles",
   "description": "Diseño y desarrollo de catálogo online",
-  "image": "../../../public/images/projects/mockup-pm.webp",
+  "image": "/images/projects/mockup-pm.webp",
   "url": "https://pergaminomuebles.com.ar/",
   "tags": ["Wordpress", "Woocommerce"],
   "featured": true,

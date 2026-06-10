@@ -1,7 +1,7 @@
 {
   "title": "Grupo Sagüés",
   "description": "Diseño y desarrollo de sitio web institucional con descarga de catálogo en PDF",
-  "image": "../../../public/images/projects/mockup-sagues.webp",
+  "image": "/images/projects/mockup-sagues.webp",
   "tags": ["WordPress"],
    "url": "https://gruposagues.com.ar/",
   "featured": true,
