@@ -13,13 +13,14 @@ const featured = (await getCollection('projects', ({ data }) =>
     <div class="container">
 
       <div id="fp-header" class="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-        <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">Portfolio</p>
-          <h2 id="fp-title" class="font-black text-foreground leading-tight" style="font-size: clamp(2rem, 10vw, 7rem); will-change: font-size;">
-            Proyectos<br/>destacados
+        <div class="overflow-hidden">
+          <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-3">Portfolio</p>
+          <h2 id="fp-title" class="font-black text-foreground leading-none" style="will-change: transform, font-size;">
+            <span class="fp-word block">Proyectos</span>
+            <span class="fp-word block">destacados</span>
           </h2>
         </div>
-        <div id="fp-cta" style="opacity: 0; transform: translateY(12px);">
+        <div id="fp-cta" style="opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease;">
           <Button href="/proyectos" variant="outline" size="sm">
             Ver todos
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
@@ -31,7 +32,7 @@ const featured = (await getCollection('projects', ({ data }) =>
         </div>
       </div>
 
-      <div id="fp-list" class="flex flex-col gap-6" style="opacity: 0; transform: translateY(32px);">
+      <div id="fp-list" class="flex flex-col gap-6" style="opacity: 0; transform: translateY(40px);">
         {featured.map((project, i) => (
           <ProjectCard
             title={project.data.title}
@@ -48,6 +49,32 @@ const featured = (await getCollection('projects', ({ data }) =>
   </section>
 )}
 
+<style>
+  .fp-letter {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(4px);
+    transition:
+      opacity 0.4s ease,
+      filter 0.4s ease,
+      transform 0.4s ease;
+  }
+
+  .fp-letter.visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+    text-shadow: 0 0 30px color-mix(in oklch, var(--color-brand-500) 40%, transparent);
+  }
+
+  /* glow se desvanece luego de aparecer */
+  .fp-letter.settled {
+    text-shadow: none;
+    transition: text-shadow 0.8s ease;
+  }
+</style>
+
 <script>
   function initFeaturedAnimation() {
     const section = document.getElementById('featured-projects');
@@ -55,32 +82,75 @@ const featured = (await getCollection('projects', ({ data }) =>
     const list    = document.getElementById('fp-list')  as HTMLElement | null;
     const cta     = document.getElementById('fp-cta')   as HTMLElement | null;
     if (!section || !title || !list || !cta) return;
+    if (title.dataset.fpInit) return;
+    title.dataset.fpInit = 'true';
 
-    const FONT_START = 7;   // rem — tamaño grande al entrar
-    const FONT_END   = 2;   // rem — tamaño final (normal)
+    const FONT_MAX = 10;   // rem — tamaño gigante al entrar
+    const FONT_MIN = 2.2;  // rem — tamaño final
+
+    // ── Split en letras ──────────────────────────────────────────
+    const words = title.querySelectorAll<HTMLElement>('.fp-word');
+    let allLetters: HTMLElement[] = [];
+
+    words.forEach((word) => {
+      const text = word.textContent || '';
+      word.innerHTML = text.split('').map((char) =>
+        `<span class="fp-letter">${char}</span>`
+      ).join('');
+      allLetters = allLetters.concat(Array.from(word.querySelectorAll<HTMLElement>('.fp-letter')));
+    });
+
+    // ── Trigger de aparición (una sola vez al entrar) ────────────
+    let revealed = false;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !revealed) {
+        revealed = true;
+        allLetters.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add('visible');
+            setTimeout(() => el.classList.add('settled'), 800);
+          }, i * 40);
+        });
+        observer.disconnect();
+      }
+    }, { threshold: 0.1 });
+
+    observer.observe(section);
+
+    // ── Animación scroll-driven ──────────────────────────────────
+    function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
+    function ease(t: number) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
 
     function update() {
       const rect     = section.getBoundingClientRect();
       const vh       = window.innerHeight;
 
-      // progress: 0 cuando el top de la sección toca el fondo del viewport
-      //           1 cuando el top de la sección llega al top del viewport
+      // progress: 0 = sección entrando desde abajo, 1 = top de sección en top de viewport
       const raw      = 1 - rect.top / vh;
       const progress = Math.min(1, Math.max(0, raw));
+      const eased    = ease(progress);
 
-      // Título: interpola de FONT_START a FONT_END
-      const fontSize = FONT_START + (FONT_END - FONT_START) * progress;
-      title.style.fontSize = `clamp(${FONT_END}rem, ${fontSize * 2}vw, ${fontSize}rem)`;
+      // Tamaño: de FONT_MAX a FONT_MIN
+      const fs = lerp(FONT_MAX, FONT_MIN, eased);
+      title.style.fontSize = `clamp(${FONT_MIN}rem, ${fs}vw, ${fs}rem)`;
 
-      // Lista y CTA: aparecen en la segunda mitad del progress
-      const listProgress = Math.min(1, Math.max(0, (progress - 0.5) * 2));
-      list.style.opacity  = String(listProgress);
-      list.style.transform = `translateY(${(1 - listProgress) * 32}px)`;
-      cta.style.opacity   = String(listProgress);
-      cta.style.transform = `translateY(${(1 - listProgress) * 12}px)`;
+      // Posición: de centrado a izquierda
+      const containerW = section.getBoundingClientRect().width;
+      const titleW     = title.getBoundingClientRect().width;
+      const centerOffset = (containerW - titleW) / 2;
+      const tx = lerp(Math.max(0, centerOffset), 0, eased);
+      title.style.transform = `translateX(${tx}px)`;
+
+      // Lista y CTA: aparecen en la segunda mitad
+      const listP = Math.min(1, Math.max(0, (progress - 0.55) * 2.2));
+      list.style.opacity   = String(listP);
+      list.style.transform = `translateY(${lerp(40, 0, listP)}px)`;
+      cta.style.opacity    = String(listP);
+      cta.style.transform  = `translateY(${lerp(12, 0, listP)}px)`;
     }
 
     window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
     update();
   }
 
