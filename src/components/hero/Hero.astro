@@ -5,7 +5,7 @@ import { heroSectionVariants, heroBlobVariants } from './hero.variants';
 
 interface Props extends HTMLAttributes<'section'> {
   /** Layout mode: centered single column or split two-column */
-  layout?: 'centered' | 'split';
+  layout?: 'centered' | 'split' | 'split-wide';
   /** Vertical padding size */
   size?: 'sm' | 'md' | 'lg' | 'xl';
   /** Show background grid pattern */
@@ -36,6 +36,8 @@ const hasAsideSlot = Astro.slots.has('aside');
 // Compute alignment based on layout
 const alignment = layout === 'centered' ? 'text-center items-center' : 'text-left items-start';
 
+const isSplit = layout === 'split' || layout === 'split-wide';
+
 // Compute classes
 const sectionClasses = cn(heroSectionVariants({ size }), className);
 
@@ -46,7 +48,8 @@ const contentClasses = cn(
 
 const gridClasses = cn(
   'container mx-auto grid grid-cols-1 items-center gap-[var(--space-section-gap)]',
-  layout === 'split' && 'lg:grid-cols-2 lg:gap-[var(--space-section-gap)]'
+  layout === 'split' && 'lg:grid-cols-2',
+  layout === 'split-wide' && 'lg:grid-cols-[30%_70%]'
 );
 ---
 
@@ -105,8 +108,8 @@ const gridClasses = cn(
       <slot />
     </div>
 
-    {/* Aside Column (for split layout) */}
-    {layout === 'split' && hasAsideSlot && (
+    {/* Aside Column (for split and split-wide layouts) */}
+    {isSplit && hasAsideSlot && (
       <div class="relative z-10 w-full order-2 lg:order-none">
         <slot name="aside" />
         {/* Decorative blob for split layout */}
