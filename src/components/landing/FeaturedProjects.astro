@@ -15,7 +15,7 @@ const featured = (await getCollection('projects', ({ data }) =>
       <div id="fp-header" class="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-3">Portfolio</p>
-          <h2 id="fp-title" class="font-black text-foreground leading-none" style="will-change: transform, font-size;">
+          <h2 id="fp-title" class="font-black text-foreground leading-none" style="will-change: transform, font-size; transform: translateZ(0);">
             <span class="fp-word block">Proyectos</span>
             <span class="fp-word block">destacados</span>
           </h2>
@@ -85,7 +85,7 @@ const featured = (await getCollection('projects', ({ data }) =>
     if (title.dataset.fpInit) return;
     title.dataset.fpInit = 'true';
 
-    const FONT_MAX = 80;   // vw — grande al entrar
+    const FONT_MAX = 18;   // vw — grande al entrar
     const FONT_MIN = 2.2;  // rem — tamaño final
 
     // ── Split en letras ──────────────────────────────────────────
