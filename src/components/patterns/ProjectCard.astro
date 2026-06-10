@@ -18,8 +18,7 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
 ---
 
 <article class:list={[
-  "group grid grid-cols-1 md:items-stretch gap-4",
-  reversed ? "md:grid-cols-[40%_60%]" : "md:grid-cols-[60%_40%]",
+  "group grid grid-cols-1 md:items-stretch gap-4 md:grid-cols-[60%_40%]",
   reversed && "md:[&>*:first-child]:order-2 md:[&>*:last-child]:order-1"
 ]}>
 
