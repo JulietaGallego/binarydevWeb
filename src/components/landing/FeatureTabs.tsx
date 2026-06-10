@@ -459,7 +459,7 @@ export function FeatureTabs() {
         </svg>
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative container">
         {/* Header */}
         <div className="mb-[var(--space-section-header)]">
           <h2 className="font-display text-foreground text-3xl font-bold md:text-4xl">
