@@ -12,6 +12,7 @@ const firstStep = getStep(1);
 
 <div
   id="quiz-container"
+  data-whatsapp={whatsappNumber}
   class="w-full max-w-3xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border flex flex-col"
   style="min-height: 560px;"
 >
@@ -106,10 +107,11 @@ const firstStep = getStep(1);
   </div>
 </div>
 
-<script define:vars={{ whatsappNumber }}>
-  import { getStep, getResult, TOTAL_STEPS }  from "../../lib/quiz";
-  
-  import type { QuizStep }  from "../../lib/quiz";
+<script>
+  import { getStep, getResult, TOTAL_STEPS } from "../../lib/quiz";
+  import type { QuizStep } from "../../lib/quiz";
+
+  const whatsappNumber = (document.getElementById("quiz-container") as HTMLElement).dataset.whatsapp ?? '';
 
   // ─── ESTADO ───────────────────────────────────────────────────────────────
 
