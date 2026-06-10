@@ -153,9 +153,9 @@
 
   --ring: var(--gray-0);
 
-  --accent: var(--brand-400);
-  --accent-hover: var(--brand-300);
-  --accent-light: var(--brand-900);
+  --accent: #cddb66;
+  --accent-hover: oklch(78% 0.13 112);
+  --accent-light: oklch(25% 0.05 112);
 
   /* Brand primitives — shifted lighter in dark mode for accessible text.
      brand-500 at 48% L is illegible on gray-950; 63% L gives ~5.5:1 (AA ✓). */
