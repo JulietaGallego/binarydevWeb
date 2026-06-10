@@ -63,8 +63,15 @@ const gridClasses = cn(
   )}
 
   <div class={gridClasses}>
+    {/* Aside Column first for split-wide (renders left at 30%) */}
+    {layout === 'split-wide' && hasAsideSlot && (
+      <div class="relative z-10 w-full order-2 lg:order-first">
+        <slot name="aside" />
+      </div>
+    )}
+
     {/* Content Column */}
-    <div class={cn(contentClasses, 'order-1 lg:order-none')}>
+    <div class={cn(contentClasses, layout === 'split-wide' ? 'order-1 lg:order-last' : 'order-1 lg:order-none')}>
       {/* Badge Slot */}
       {hasBadgeSlot && (
         <div class="mb-[var(--space-heading-gap)]">
@@ -108,11 +115,10 @@ const gridClasses = cn(
       <slot />
     </div>
 
-    {/* Aside Column (for split and split-wide layouts) */}
-    {isSplit && hasAsideSlot && (
+    {/* Aside Column for split 50/50 */}
+    {layout === 'split' && hasAsideSlot && (
       <div class="relative z-10 w-full order-2 lg:order-none">
         <slot name="aside" />
-        {/* Decorative blob for split layout */}
         {showBlob && (
           <div
             class={heroBlobVariants({ position: blobPosition })}
