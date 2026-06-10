@@ -1,6 +1,8 @@
 ---
 import LandingLayout from '@/layouts/LandingLayout.astro';
-import LandingHero from '@/components/landing/LandingHero.astro';
+import { Hero } from '@/components/hero';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
 import ProcesoTrabajo from '@/components/landing/ProcesoTrabajo.astro';
 import WebInstitucional from '@/components/landing/WebInstitucional.astro';
 import TiendaOnline from '@/components/landing/TiendaOnline.astro';
@@ -14,17 +16,44 @@ import FeaturedProjects from '@/components/landing/FeaturedProjects.astro';
   title="BinaryDev — Diseño y desarrollo web"
   description="Diseño, desarrollo y estrategia digital para negocios que quieren crecer en internet. Webs que convierten visitas en clientes."
 >
-  <LandingHero />
+  <Hero layout="centered" size="xl" showGrid>
+    <Badge slot="badge" pill>Diseño web · Buenos Aires</Badge>
 
-  
+    <h1 slot="title">
+      Webs que convierten<br />
+      <span class="text-brand-500">visitas en clientes.</span>
+    </h1>
+
+    <p slot="description">
+      Diseño y desarrollo sitios web a medida para negocios que quieren crecer en internet. Sin templates genéricos, sin soluciones de una sola talla.
+    </p>
+
+    <div slot="actions">
+      <Button href="/quiz" size="lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        ¿Qué web necesitás?
+      </Button>
+      <Button href="/proyectos" variant="outline" size="lg">
+        Portfolio
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </Button>
+    </div>
+  </Hero>
+
   <FeaturedProjects />
-
-    
   <WebInstitucional />
   <TiendaOnline />
   <QuizSection />
   <ProcesoTrabajo />
-  <Faq />   
+  <Faq />
   <CTA />
-  
+
 </LandingLayout>
