@@ -50,7 +50,7 @@ const hasActionsSlot = Astro.slots.has('actions');
   class={cn(sectionStyles[variant], sizes[size], className)}
   {...attrs}
 >
-  <div class="mx-auto max-w-6xl px-6">
+  <div class="container">
     <div class={cn(maxWidths[maxWidth], 'text-center mx-auto')}>
       {/* Logo Slot - renders before heading */}
       {hasLogoSlot && (

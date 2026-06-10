@@ -67,7 +67,7 @@ const colorMap: Record<string, { bg: string; icon: string; tag: string; border: 
     <!-- Grid sutil -->
     <div class="services-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
-    <div class="relative z-10 mx-auto max-w-6xl px-6">
+    <div class="relative z-10 container">
 
       <!-- Label -->
       <p class="mb-6 text-sm font-bold uppercase tracking-[0.2em] text-brand-400">Servicios</p>
@@ -121,7 +121,7 @@ const colorMap: Record<string, { bg: string; icon: string; tag: string; border: 
 
   <!-- ── Cards de servicios ─────────────────────────────────────── -->
   <section class="py-20 lg:py-28">
-    <div class="mx-auto max-w-6xl px-6">
+    <div class="container">
 
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         {services.map((s) => {

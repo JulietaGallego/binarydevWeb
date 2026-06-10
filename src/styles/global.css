@@ -11,7 +11,6 @@
 
 /* Self-hosted fonts via Fontsource (CSP-safe, no external requests) */
 @import '@fontsource-variable/manrope';
-@import '@fontsource-variable/outfit';
 @import '@fontsource-variable/jetbrains-mono';
 
 /* Dark mode variant */
@@ -122,7 +121,7 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Container */
-  --container-max: 1200px;
+  --container-max: 1400px;
 }
 
 /* -------------------------------------------------------------------------

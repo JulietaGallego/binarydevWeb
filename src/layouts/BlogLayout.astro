@@ -134,7 +134,7 @@ const blogPostSchema = createBlogPostSchema({
   <!-- Related Posts -->
   {
     tags.length > 0 && (
-      <div class="mx-auto max-w-6xl px-6 pb-16">
+      <div class="container pb-16">
         <RelatedPosts currentSlug={slug} tags={tags} locale="es" maxPosts={3} />
       </div>
     )
