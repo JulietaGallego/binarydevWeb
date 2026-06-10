@@ -1,24 +1,26 @@
 ---
-import Icon from '@/components/ui/primitives/Icon/Icon.astro';
-import Card from '@/components/ui/data-display/Card/Card.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import { FadeIn } from '@/components/ui/scroll-text';
+import ProcessCard from './ProcessCard';
 
 const steps = [
   {
     name: 'Diagnóstico inicial',
     desc: 'Entiendo la prioridad de tu negocio y definimos la solución ideal para vos.',
     icon: 'search',
+    image: '/images/process/diagnostico.webp',
   },
   {
     name: 'Diseño y desarrollo',
     desc: 'Construyo tu plataforma enfocándome en la velocidad, la estética y la facilidad de uso.',
     icon: 'code',
+    image: '/images/process/desarrollo.webp',
   },
   {
     name: 'Lanzamiento y soporte',
     desc: 'Tu web queda online y lista para recibir clientes, con acompañamiento para que aprendas a usarla.',
     icon: 'zap',
+    image: '/images/process/lanzamiento.webp',
   },
 ] as const;
 ---
@@ -47,19 +49,15 @@ const steps = [
     <ol class="grid grid-cols-1 gap-[var(--space-content-gap)] md:grid-cols-3">
       {steps.map((item, i) => (
         <FadeIn client:visible delay={i * 0.12}>
-          <li>
-            <Card variant="elevated" padding="md" hover={true} class="h-full">
-              <div class="flex flex-col items-center gap-4 md:items-start text-center md:text-left">
-                <div class="flex w-full items-start justify-between">
-                  <div class="flex items-center justify-center rounded-lg bg-background p-2 ring-1 ring-border">
-                    <Icon name={item.icon} size="lg" />
-                  </div>
-                  <span class="font-display text-4xl font-black opacity-10 select-none">{i + 1}</span>
-                </div>
-                <h3 class="font-display text-lg font-bold text-foreground">{item.name}</h3>
-                <p class="text-sm leading-relaxed text-foreground-muted">{item.desc}</p>
-              </div>
-            </Card>
+          <li class="h-full">
+            <ProcessCard
+              client:visible
+              name={item.name}
+              desc={item.desc}
+              icon={item.icon}
+              index={i}
+              image={item.image}
+            />
           </li>
         </FadeIn>
       ))}
