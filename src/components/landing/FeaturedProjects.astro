@@ -9,7 +9,7 @@ const featured = (await getCollection('projects', ({ data }) =>
 ---
 
 {featured.length > 0 && (
-  <section id="featured-projects" class="relative z-10 bg-background pt-32 pb-20 overflow-x-hidden">
+  <section id="featured-projects" class="relative z-10 pt-32 pb-20 overflow-x-hidden" style="background: oklch(92% 0.04 250);"><!-- fondo provisorio -->
     <div class="container">
 
       <div id="fp-header" class="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
@@ -85,8 +85,14 @@ const featured = (await getCollection('projects', ({ data }) =>
     if (title.dataset.fpInit) return;
     title.dataset.fpInit = 'true';
 
-    const FONT_MAX = 8;    // vw — tamaño gigante al entrar (relativo al viewport)
-    const FONT_MIN = 2.2;  // rem — tamaño final
+    const isMobile = window.innerWidth < 768;
+
+    // Desktop: empieza grande (80vw) y achica
+    // Mobile:  empieza chico (6vw) y crece hasta 20vw, luego se fija
+    const FONT_MAX_D = 80;   // vw desktop — grande al entrar
+    const FONT_MIN_D = 2.2;  // rem desktop — final
+    const FONT_MIN_M = 6;    // vw mobile — chico al entrar
+    const FONT_MAX_M = 20;   // vw mobile — grande al llegar al top
 
     // ── Split en letras ──────────────────────────────────────────
     const words = title.querySelectorAll<HTMLElement>('.fp-word');
@@ -130,17 +136,25 @@ const featured = (await getCollection('projects', ({ data }) =>
       const progress = Math.min(1, Math.max(0, raw));
       const eased    = ease(progress);
 
-      // Tamaño: de FONT_MAX (vw) a FONT_MIN (rem)
       const vw = window.innerWidth / 100;
-      const fsPx = lerp(FONT_MAX * vw, FONT_MIN * 16, eased);
-      title.style.fontSize = `${fsPx}px`;
+      const mobile = window.innerWidth < 768;
 
-      // Posición: de centrado a izquierda (nunca negativo)
-      const containerW = title.parentElement!.getBoundingClientRect().width;
-      const titleW     = title.getBoundingClientRect().width;
-      const centerOffset = Math.max(0, (containerW - titleW) / 2);
-      const tx = lerp(centerOffset, 0, eased);
-      title.style.transform = `translateX(${tx}px)`;
+      if (mobile) {
+        // Mobile: crece de FONT_MIN_M a FONT_MAX_M
+        const fsPx = lerp(FONT_MIN_M * vw, FONT_MAX_M * vw, eased);
+        title.style.fontSize = `${fsPx}px`;
+        title.style.transform = '';
+      } else {
+        // Desktop: achica de FONT_MAX_D a FONT_MIN_D y desliza al centro → izquierda
+        const fsPx = lerp(FONT_MAX_D * vw, FONT_MIN_D * 16, eased);
+        title.style.fontSize = `${fsPx}px`;
+
+        const containerW = title.parentElement!.getBoundingClientRect().width;
+        const titleW     = title.getBoundingClientRect().width;
+        const centerOffset = Math.max(0, (containerW - titleW) / 2);
+        const tx = lerp(centerOffset, 0, eased);
+        title.style.transform = `translateX(${tx}px)`;
+      }
 
       // Lista y CTA: aparecen en la segunda mitad
       const listP = Math.min(1, Math.max(0, (progress - 0.55) * 2.2));
