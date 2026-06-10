@@ -1,7 +1,7 @@
 {
   "title": "Agrorepuestos Pergamino",
   "description": "Catálogo en línea, seo, seo local, diseño de flyers",
-  "image": "../../../public/images/projects/mockup-ap.webp",
+  "image": "/images/projects/mockup-ap.webp",
   "tags": ["Tienda Nube", "SEO", "SEO local"],
    "url": "https://agrorepuestospergamino.com.ar/",
   "featured": true,
