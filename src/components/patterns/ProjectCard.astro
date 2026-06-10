@@ -18,32 +18,33 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
 ---
 
 <article class:list={[
-  "group grid grid-cols-1 md:items-stretch gap-4",
-  reversed ? "md:grid-cols-[40%_60%]" : "md:grid-cols-[60%_40%]",
+  "group grid grid-cols-1 md:items-stretch gap-4 md:grid-cols-[60%_40%]",
   reversed && "md:[&>*:first-child]:order-2 md:[&>*:last-child]:order-1"
 ]}>
 
   <!-- Imagen -->
-  <TiltCard client:visible className="rounded-2xl overflow-hidden border border-border bg-secondary">
-    {image ? (
-      <img
-        src={image}
-        alt={`Mockup de ${title}`}
-        class="w-full h-auto object-cover"
-        loading="lazy"
-        draggable="false"
-      />
-    ) : (
-      <div class="w-full min-h-[320px] flex items-center justify-center bg-gradient-to-br from-brand-500/10 to-brand-500/5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
-          fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-          stroke-linejoin="round" class="text-brand-500/30" aria-hidden="true">
-          <rect width="20" height="14" x="2" y="3" rx="2"/>
-          <path d="M8 21h8M12 17v4"/>
-        </svg>
-      </div>
-    )}
-  </TiltCard>
+  <div>
+    <TiltCard client:visible className="rounded-2xl overflow-hidden border border-border bg-secondary">
+      {image ? (
+        <img
+          src={image}
+          alt={`Mockup de ${title}`}
+          class="w-full h-auto object-cover"
+          loading="lazy"
+          draggable="false"
+        />
+      ) : (
+        <div class="w-full min-h-[320px] flex items-center justify-center bg-gradient-to-br from-brand-500/10 to-brand-500/5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" class="text-brand-500/30" aria-hidden="true">
+            <rect width="20" height="14" x="2" y="3" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+      )}
+    </TiltCard>
+  </div>
 
   <!-- Contenedor texto: card visual en mobile, altura de imagen en desktop -->
   <div class="rounded-2xl border border-border bg-card p-8 md:p-10 md:h-full">
