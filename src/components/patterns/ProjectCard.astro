@@ -1,6 +1,7 @@
 ---
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
+import TiltCard from '@/components/ui/TiltCard';
 
 interface Props {
   title: string;
@@ -23,10 +24,7 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
 ]}>
 
   <!-- Imagen -->
-  <div
-    class="tilt-card rounded-2xl overflow-hidden border border-border bg-secondary"
-    style="transform-style: preserve-3d; will-change: transform;"
-  >
+  <TiltCard client:visible className="rounded-2xl overflow-hidden border border-border bg-secondary">
     {image ? (
       <img
         src={image}
@@ -45,7 +43,7 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
         </svg>
       </div>
     )}
-  </div>
+  </TiltCard>
 
   <!-- Contenedor texto: card visual en mobile, altura de imagen en desktop -->
   <div class="rounded-2xl border border-border bg-card p-8 md:p-10 md:h-full">
@@ -117,10 +115,3 @@ const urlDisplay = url ? new URL(url).hostname.replace(/^www\./, '') : '';
     transform: translateY(-100%);
   }
 </style>
-
-<script>
-  import { initTilt } from '@/scripts/tilt';
-
-  initTilt();
-  document.addEventListener('astro:page-load', initTilt);
-</script>
