@@ -19,14 +19,25 @@ import FeaturedProjects from '@/components/landing/FeaturedProjects.astro';
   <Hero layout="centered" size="xl" showGrid>
     <Badge slot="badge" pill>Diseño web · Buenos Aires</Badge>
 
-    <h1 slot="title">
-      Webs que convierten<br />
-      <span class="text-brand-500">visitas en clientes.</span>
-    </h1>
-
-    <p slot="description">
-      Diseño y desarrollo sitios web a medida para negocios que quieren crecer en internet. Sin templates genéricos, sin soluciones de una sola talla.
-    </p>
+    <div slot="title" class="w-full">
+      <h1 class="font-display text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+        <!-- Fila 1: "Webs que" + párrafo (desktop) -->
+        <span class="flex items-baseline gap-10">
+          <span class="shrink-0">Webs que</span>
+          <span class="hidden md:block text-base font-normal leading-relaxed text-foreground-muted max-w-xs">
+            Diseño y desarrollo sitios web a medida para negocios que quieren crecer en internet. Sin templates genéricos, sin soluciones de una sola talla.
+          </span>
+        </span>
+        <!-- Fila 2 -->
+        <span class="block">convierten visitas</span>
+        <!-- Fila 3 -->
+        <span class="block text-brand-500">en clientes.</span>
+      </h1>
+      <!-- Párrafo visible solo en mobile -->
+      <p class="mt-4 text-base leading-relaxed text-foreground-muted md:hidden">
+        Diseño y desarrollo sitios web a medida para negocios que quieren crecer en internet. Sin templates genéricos, sin soluciones de una sola talla.
+      </p>
+    </div>
 
     <div slot="actions">
       <Button href="/quiz" size="lg">
