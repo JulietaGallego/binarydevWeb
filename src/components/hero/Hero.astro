@@ -1,67 +1,75 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import { cn } from '@/lib/cn';
-import { heroSectionVariants, heroBlobVariants } from './hero.variants';
+import { heroSectionVariants } from './hero.variants';
+
+type Columns = '50/50' | '60/40' | '40/60' | '70/30' | '30/70' | '65/35' | '35/65';
 
 interface Props extends HTMLAttributes<'section'> {
   /** Layout mode: centered single column or split two-column */
-  layout?: 'centered' | 'split' | 'split-wide';
+  layout?: 'centered' | 'split';
   /** Vertical padding size */
   size?: 'sm' | 'md' | 'lg' | 'xl';
   /** Show background grid pattern */
   showGrid?: boolean;
-  /** Show decorative gradient blob */
-  showBlob?: boolean;
-  /** Blob position (only applies when showBlob is true) */
-  blobPosition?: 'left' | 'right' | 'center';
   /** Stick the hero to the top so the next section scrolls over it */
   sticky?: boolean;
+  /**
+   * Column split for split layout. First value = left column, second = right.
+   * e.g. "60/40" → content 60% left, aside 40% right (default: "50/50")
+   */
+  columns?: Columns;
+  /**
+   * Invert column order from md breakpoint up.
+   * DOM order is always preserved on mobile.
+   */
+  reverse?: boolean;
 }
 
 const {
   layout = 'centered',
   size = 'lg',
   showGrid = false,
-  showBlob = false,
-  blobPosition = 'right',
   sticky = false,
+  columns = '50/50',
+  reverse = false,
   class: className,
   ...attrs
 } = Astro.props;
 
-// Check which slots are provided
-const hasBadgeSlot = Astro.slots.has('badge');
-const hasTitleSlot = Astro.slots.has('title');
+const hasBadgeSlot       = Astro.slots.has('badge');
+const hasTitleSlot       = Astro.slots.has('title');
 const hasDescriptionSlot = Astro.slots.has('description');
-const hasActionsSlot = Astro.slots.has('actions');
-const hasAsideSlot = Astro.slots.has('aside');
+const hasActionsSlot     = Astro.slots.has('actions');
+const hasAsideSlot       = Astro.slots.has('aside');
 
-// Compute alignment based on layout
+const isSplit   = layout === 'split';
 const alignment = layout === 'centered' ? 'text-center items-center' : 'text-left items-start';
 
-const isSplit = layout === 'split' || layout === 'split-wide';
+// Static map so Tailwind's scanner picks up every class string
+const colsMap: Record<Columns, string> = {
+  '50/50': 'md:grid-cols-2',
+  '60/40': 'md:grid-cols-[60%_40%]',
+  '40/60': 'md:grid-cols-[40%_60%]',
+  '70/30': 'md:grid-cols-[70%_30%]',
+  '30/70': 'md:grid-cols-[30%_70%]',
+  '65/35': 'md:grid-cols-[65%_35%]',
+  '35/65': 'md:grid-cols-[35%_65%]',
+};
 
-// Compute classes
 const sectionClasses = cn(
   heroSectionVariants({ size }),
   sticky && 'sticky top-0 z-0',
   className
 );
 
-const contentClasses = cn(
-  'z-10 flex flex-col',
-  alignment
-);
-
 const gridClasses = cn(
   'container mx-auto grid grid-cols-1 items-center gap-[var(--space-section-gap)]',
-  layout === 'split' && 'lg:grid-cols-2',
-  layout === 'split-wide' && 'lg:grid-cols-[30%_70%]'
+  isSplit && colsMap[columns]
 );
 ---
 
 <section class={sectionClasses} {...attrs}>
-  {/* Background grid pattern */}
   {showGrid && (
     <div
       class="bg-grid-pattern pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-40"
@@ -70,23 +78,20 @@ const gridClasses = cn(
   )}
 
   <div class={gridClasses}>
-    {/* Aside Column first for split-wide (renders left at 30%) */}
-    {layout === 'split-wide' && hasAsideSlot && (
-      <div class="relative z-10 w-full order-2 lg:order-first">
-        <slot name="aside" />
-      </div>
-    )}
 
     {/* Content Column */}
-    <div class={cn(contentClasses, layout === 'split-wide' ? 'order-1 lg:order-last' : 'order-1 lg:order-none')}>
-      {/* Badge Slot */}
+    <div class={cn(
+      'z-10 flex flex-col',
+      alignment,
+      isSplit && reverse && 'md:order-2'
+    )}>
+
       {hasBadgeSlot && (
         <div class="mb-[var(--space-heading-gap)]">
           <slot name="badge" />
         </div>
       )}
 
-      {/* Title Slot */}
       {hasTitleSlot && (
         <div class={cn(
           'mb-[var(--space-heading-gap)]',
@@ -97,7 +102,6 @@ const gridClasses = cn(
         </div>
       )}
 
-      {/* Description Slot */}
       {hasDescriptionSlot && (
         <div class={cn(
           'mb-[var(--space-stack-lg)] max-w-xl text-lg leading-relaxed text-foreground-muted',
@@ -108,7 +112,6 @@ const gridClasses = cn(
         </div>
       )}
 
-      {/* Actions Slot */}
       {hasActionsSlot && (
         <div class={cn(
           'flex w-full flex-col gap-4 sm:w-auto sm:flex-row',
@@ -118,29 +121,18 @@ const gridClasses = cn(
         </div>
       )}
 
-      {/* Default slot for additional content (social proof, etc.) */}
       <slot />
     </div>
 
-    {/* Aside Column for split 50/50 */}
-    {layout === 'split' && hasAsideSlot && (
-      <div class="relative z-10 w-full order-2 lg:order-none">
+    {/* Aside Column */}
+    {isSplit && hasAsideSlot && (
+      <div class={cn(
+        'relative z-10 w-full',
+        reverse && 'md:order-1'
+      )}>
         <slot name="aside" />
-        {showBlob && (
-          <div
-            class={heroBlobVariants({ position: blobPosition })}
-            aria-hidden="true"
-          />
-        )}
       </div>
     )}
 
-    {/* Decorative blob for centered layout */}
-    {layout === 'centered' && showBlob && (
-      <div
-        class={heroBlobVariants({ position: blobPosition })}
-        aria-hidden="true"
-      />
-    )}
   </div>
 </section>
