@@ -3,8 +3,6 @@ import type { HTMLAttributes } from 'astro/types';
 import { cn } from '@/lib/cn';
 import { heroSectionVariants } from './hero.variants';
 
-type Columns = '50/50' | '60/40' | '40/60' | '70/30' | '30/70' | '65/35' | '35/65';
-
 interface Props extends HTMLAttributes<'section'> {
   /** Layout mode: centered single column or split two-column */
   layout?: 'centered' | 'split';
@@ -15,13 +13,13 @@ interface Props extends HTMLAttributes<'section'> {
   /** Stick the hero to the top so the next section scrolls over it */
   sticky?: boolean;
   /**
-   * Column split for split layout. First value = left column, second = right.
-   * e.g. "60/40" → content 60% left, aside 40% right (default: "50/50")
+   * Column widths for split layout — cualquier valor CSS válido de grid-template-columns.
+   * e.g. "2fr 1fr", "70% 30%", "3fr 2fr". Default: "1fr 1fr"
    */
-  columns?: Columns;
+  columns?: string;
   /**
-   * Invert column order from md breakpoint up.
-   * DOM order is always preserved on mobile.
+   * Invierte el orden visual de las columnas desde md.
+   * El orden del DOM (mobile) no cambia.
    */
   reverse?: boolean;
 }
@@ -31,7 +29,7 @@ const {
   size = 'lg',
   showGrid = false,
   sticky = false,
-  columns = '50/50',
+  columns = '1fr 1fr',
   reverse = false,
   class: className,
   ...attrs
@@ -46,17 +44,6 @@ const hasAsideSlot       = Astro.slots.has('aside');
 const isSplit   = layout === 'split';
 const alignment = layout === 'centered' ? 'text-center items-center' : 'text-left items-start';
 
-// Static map so Tailwind's scanner picks up every class string
-const colsMap: Record<Columns, string> = {
-  '50/50': 'md:grid-cols-2',
-  '60/40': 'md:grid-cols-[60%_40%]',
-  '40/60': 'md:grid-cols-[40%_60%]',
-  '70/30': 'md:grid-cols-[70%_30%]',
-  '30/70': 'md:grid-cols-[30%_70%]',
-  '65/35': 'md:grid-cols-[65%_35%]',
-  '35/65': 'md:grid-cols-[35%_65%]',
-};
-
 const sectionClasses = cn(
   heroSectionVariants({ size }),
   sticky && 'sticky top-0 z-0',
@@ -65,7 +52,7 @@ const sectionClasses = cn(
 
 const gridClasses = cn(
   'container mx-auto grid grid-cols-1 items-center gap-[var(--space-section-gap)]',
-  isSplit && colsMap[columns]
+  isSplit && 'hero-split-grid'
 );
 ---
 
@@ -136,3 +123,11 @@ const gridClasses = cn(
 
   </div>
 </section>
+
+<style define:vars={{ columns }}>
+  @media (min-width: 768px) {
+    .hero-split-grid {
+      grid-template-columns: var(--columns);
+    }
+  }
+</style>
