@@ -14,13 +14,14 @@ const iconPaths: Record<string, string> = {
 
 interface ProcessCardProps {
   name: string;
+  subtitle?: string;
   desc: string;
   icon: string;
   index: number;
   image?: string;
 }
 
-export function ProcessCard({ name, desc, icon, index, image }: ProcessCardProps) {
+export function ProcessCard({ name, subtitle, desc, icon, index, image }: ProcessCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -97,7 +98,8 @@ export function ProcessCard({ name, desc, icon, index, image }: ProcessCardProps
         </div>
 
         <div>
-          <h3 className="font-display text-lg font-bold text-foreground mb-2">{name}</h3>
+          <h3 className="font-display text-lg font-bold text-foreground mb-1">{name}</h3>
+          {subtitle && <p className="text-sm italic text-brand-500 mb-2">{subtitle}</p>}
           <p className="text-sm leading-relaxed text-foreground-muted">{desc}</p>
         </div>
       </div>
