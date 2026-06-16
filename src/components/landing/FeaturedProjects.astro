@@ -9,10 +9,10 @@ const featured = (await getCollection('projects', ({ data }) =>
 ---
 
 {featured.length > 0 && (
-  <section id="featured-projects" class="relative z-10 bg-background pt-32 pb-20">
+  <section id="featured-projects" class="relative z-10 bg-background py-[var(--space-section-lg)]">
     <div class="container">
 
-      <div id="fp-header" class="p-10 mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 overflow-x-hidden">
+      <div id="fp-header" class="mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 overflow-x-hidden">
         <div>
           <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-3">Portfolio</p>
           <h2
@@ -36,7 +36,7 @@ const featured = (await getCollection('projects', ({ data }) =>
         </div>
       </div>
 
-      <div id="fp-list" class="flex flex-col gap-6" style="opacity: 0; transform: translateY(40px);">
+      <div id="fp-list" class="flex flex-col gap-16" style="opacity: 0; transform: translateY(40px);">
         {featured.map((project, i) => (
           <ProjectCard
             title={project.data.title}

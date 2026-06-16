@@ -16,8 +16,8 @@ const {
 } = Astro.props;
 ---
 
-<section class={`relative z-10 py-16 px-4 md:py-24 bg-background border-t border-b border-border/60 ${className || ''}`} id="quiz">
-  <div class="max-w-4xl mx-auto text-center mb-12">
+<section class={`relative z-10 py-[var(--space-section-lg)] px-4 bg-background border-t border-b border-border/60 ${className || ''}`} id="quiz">
+  <div class="max-w-4xl mx-auto text-center mb-16">
     <TextAnimation
       client:visible
       text={title}
