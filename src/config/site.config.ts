@@ -56,7 +56,14 @@ const siteConfig: SiteConfig = {
   author: 'Julieta Gallego',
   email: 'julieta@binarydev.com.ar',
   phone: '+5492477235288',
-  socialLinks: [],
+  socialLinks: [
+    'https://www.linkedin.com/in/julietagallego/',
+    'https://share.google/Saf3ISjRgzxNa7LHV',
+  ],
+  twitter: {
+    site: '@binarydevstudio',
+    creator: '@binarydevstudio',
+  },
   verification: {
     google: GOOGLE_SITE_VERIFICATION,
     bing: BING_SITE_VERIFICATION,
