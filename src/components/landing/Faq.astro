@@ -2,6 +2,7 @@
 import Accordion from '@/components/ui/overlay/Accordion/Accordion.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import siteConfig from '@/config/site.config';
+import { createFAQSchema } from '@/lib/schema';
 
 const whatsappUrl = `https://wa.me/${siteConfig.phone?.replace(/\D/g, '')}`;
 
@@ -35,7 +36,11 @@ const faqItems = [
     content: 'Realizo auditorías de sitios activos para detectar problemas de carga, diseño o conversión. Evaluamos si es viable optimizar la estructura existente o si conviene realizar un rediseño desde cero.'
   }
 ];
+
+const faqSchema = createFAQSchema(faqItems.map(f => ({ question: f.title, answer: f.content })));
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-sm)]">
   <div class="mx-auto max-w-4xl px-6">

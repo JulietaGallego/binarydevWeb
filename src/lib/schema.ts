@@ -1,17 +1,13 @@
 import type {
   WebSite,
-  Organization,
+  LocalBusiness,
   BlogPosting,
   BreadcrumbList,
   FAQPage,
   WithContext,
-  SearchAction,
 } from 'schema-dts';
 import siteConfig from '@/config/site.config';
 
-/**
- * Create WebSite schema for homepage
- */
 export function createWebsiteSchema(): WithContext<WebSite> {
   return {
     '@context': 'https://schema.org',
@@ -19,39 +15,27 @@ export function createWebsiteSchema(): WithContext<WebSite> {
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
-      },
-      'query-input': {
-        '@type': 'PropertyValueSpecification',
-        valueRequired: true,
-        valueName: 'search_term_string',
-      },
-    } as SearchAction,
   };
 }
 
-/**
- * Create Organization schema
- */
-export function createOrganizationSchema(): WithContext<Organization> {
+export function createOrganizationSchema(): WithContext<LocalBusiness> {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'LocalBusiness',
     name: siteConfig.name,
     url: siteConfig.url,
     logo: `${siteConfig.url}/favicon.svg`,
+    description: siteConfig.description,
+    email: siteConfig.email,
+    telephone: siteConfig.phone,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Pergamino',
+      addressRegion: 'Buenos Aires',
+      addressCountry: 'AR',
+    },
+    areaServed: { '@type': 'Country', name: 'Argentina' },
     sameAs: siteConfig.socialLinks,
-    contactPoint: siteConfig.phone
-      ? {
-          '@type': 'ContactPoint',
-          telephone: siteConfig.phone,
-          contactType: 'customer service',
-        }
-      : undefined,
   };
 }
 
