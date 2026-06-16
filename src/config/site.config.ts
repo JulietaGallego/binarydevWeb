@@ -58,7 +58,7 @@ const siteConfig: SiteConfig = {
   phone: '+5492477235288',
   socialLinks: [
     'https://www.linkedin.com/in/julietagallego/',
-    'https://share.google/Saf3ISjRgzxNa7LHV',
+    'https://www.google.com/maps/place/BinaryDev/@-33.9126945,-60.5844735,17z',
   ],
   twitter: {
     site: '@binarydevstudio',
